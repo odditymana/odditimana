@@ -9,6 +9,10 @@ Thumbs.db
 ehthumbs.db
 Desktop.ini
 
+# Reference (local only)
+_reference/
+_originals/
+
 # Editor
 .vscode/
 *.swp

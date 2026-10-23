@@ -1,0 +1,468 @@
+@charset "UTF-8";
+
+/* ==========================================================================
+   1. Variables
+   ========================================================================== */
+:root {
+  /* Color */
+  --color-bg: #ecece7;
+  --color-text: #1a1a1a;
+  --color-label: #76634a; /* 背景 #ecece7 に対して 4.5:1 以上 */
+  --color-line: #1a1a1a;
+  --color-footer-bg: #1a1a1a;
+  --color-footer-text: #ecece7;
+  --color-footer-sub: #b5b5ae;
+
+  /* Font */
+  --font-display: "Six Caps", sans-serif;
+  --font-body: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+
+  /* Spacing */
+  --space-xs: 8px;
+  --space-s: 16px;
+  --space-m: 24px;
+  --space-l: 48px;
+  --space-xl: 80px;
+  --gutter: 20px;
+  --container-width: 1200px;
+  --header-height: 64px;
+
+  /* Motion */
+  --transition: 0.3s ease;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --space-l: 64px;
+    --space-xl: 120px;
+    --gutter: 40px;
+    --header-height: 80px;
+  }
+}
+
+/* ==========================================================================
+   2. Reset / Base
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+/* 中身が短いページでもフッターを画面下に置く */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  margin: 0;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+h1, h2, h3, p, ul, figure {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-text);
+  outline-offset: 4px;
+}
+
+main {
+  flex: 1;
+}
+
+/* スマホでメニューを開いている間は背面をスクロールさせない */
+body.is-menu-open {
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   3. Layout
+   ========================================================================== */
+.container {
+  width: 100%;
+  max-width: calc(var(--container-width) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* ==========================================================================
+   4. Header / Nav
+   ========================================================================== */
+.site-header {
+  position: relative;
+  z-index: 100;
+  height: var(--header-height);
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.site-logo {
+  position: relative;
+  z-index: 2; /* メニュー展開時もロゴを前面に */
+  font-family: var(--font-display);
+  font-size: 34px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.04em;
+}
+
+.site-logo img {
+  height: 32px;
+  width: auto;
+}
+
+/* Hamburger */
+.nav-toggle {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-right: -10px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.nav-toggle__bar {
+  position: relative;
+  display: block;
+  width: 24px;
+  height: 2px;
+  background-color: var(--color-text);
+  transition: background-color var(--transition);
+}
+
+.nav-toggle__bar::before,
+.nav-toggle__bar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-text);
+  transition: transform var(--transition);
+}
+
+.nav-toggle__bar::before {
+  transform: translateY(-8px);
+}
+
+.nav-toggle__bar::after {
+  transform: translateY(8px);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar {
+  background-color: transparent;
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar::before {
+  transform: rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar::after {
+  transform: rotate(-45deg);
+}
+
+/* Nav（スマホ：全画面メニュー） */
+.global-nav {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition), visibility var(--transition);
+}
+
+.global-nav.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.global-nav__list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-m);
+}
+
+.global-nav__link {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 64px;
+  line-height: 1;
+  letter-spacing: 0.12em;
+}
+
+@media (min-width: 768px) {
+  .site-logo {
+    font-size: 40px;
+  }
+
+  .site-logo img {
+    height: 40px;
+  }
+
+  .nav-toggle {
+    display: none;
+  }
+
+  .global-nav {
+    position: static;
+    display: block;
+    background: none;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .global-nav__list {
+    flex-direction: row;
+    gap: var(--space-l);
+  }
+
+  .global-nav__link {
+    position: relative;
+    padding-block: var(--space-xs);
+    font-size: 26px;
+    letter-spacing: 0.14em;
+  }
+
+  .global-nav__link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 2px;
+    width: 100%;
+    height: 1px;
+    background-color: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--transition);
+  }
+
+  .global-nav__link:hover::after,
+  .global-nav__link[aria-current="page"]::after {
+    transform: scaleX(1);
+  }
+}
+
+/* ==========================================================================
+   5. Hero
+   ========================================================================== */
+.hero {
+  display: flex;
+  align-items: center;
+  min-height: min(calc(45svh - var(--header-height)), 360px);
+  padding-block: var(--space-l);
+}
+
+.hero__lead {
+  display: flex;
+  align-items: center;
+  gap: var(--space-s);
+  margin-bottom: var(--space-s);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.hero__lead::before {
+  content: "";
+  flex-shrink: 0;
+  width: 40px;
+  height: 1px;
+  background-color: var(--color-line);
+}
+
+.hero__title {
+  font-family: var(--font-display);
+  font-size: clamp(72px, 19vw, 200px);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: 0.04em;
+}
+
+@media (min-width: 768px) {
+  .hero {
+    min-height: min(calc(50svh - var(--header-height)), 480px);
+  }
+
+  .hero__lead {
+    gap: var(--space-m);
+    font-size: 13px;
+  }
+
+  .hero__lead::before {
+    width: 72px;
+  }
+}
+
+/* ==========================================================================
+   6. Section
+   ========================================================================== */
+.section {
+  padding-bottom: var(--space-xl);
+}
+
+.section-title {
+  margin-bottom: var(--space-l);
+  padding-bottom: var(--space-s);
+  border-bottom: 2px solid var(--color-line);
+  font-family: var(--font-display);
+  font-size: clamp(64px, 16vw, 120px);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.2em;
+}
+
+/* ==========================================================================
+   7. Works
+   ========================================================================== */
+.works-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-l);
+}
+
+.work-card__image {
+  overflow: hidden;
+}
+
+.work-card__image img {
+  width: 100%;
+  transition: transform 0.6s ease;
+}
+
+.work-card__body {
+  padding-top: var(--space-s);
+}
+
+.work-card__title {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.work-card__label {
+  margin-top: 4px;
+  color: var(--color-label);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+a.work-card__link {
+  display: block;
+}
+
+a.work-card__link:hover .work-card__image img {
+  transform: scale(1.04);
+}
+
+@media (min-width: 768px) {
+  .works-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-l) var(--space-m);
+  }
+
+  .work-card__title {
+    font-size: 18px;
+  }
+}
+
+/* ==========================================================================
+   8. Footer
+   ========================================================================== */
+.site-footer {
+  padding-block: var(--space-xl) var(--space-l);
+  background-color: var(--color-footer-bg);
+  color: var(--color-footer-text);
+  text-align: center;
+}
+
+.site-footer__logo {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 72px;
+  line-height: 1;
+  letter-spacing: 0.04em;
+}
+
+.site-footer__copy {
+  display: block;
+  margin-top: var(--space-m);
+  color: var(--color-footer-sub);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+}
+
+@media (min-width: 768px) {
+  .site-footer__logo {
+    font-size: 96px;
+  }
+}
+
+/* ==========================================================================
+   9. Utility
+   ========================================================================== */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+}

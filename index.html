@@ -4,10 +4,142 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WORKS｜ODDITIMANA</title>
+  <meta name="description" content="フリーランスデザイナー ODDITIMANA のポートフォリオサイト。Webデザイン・コーディング、フライヤーデザインの制作実績を掲載しています。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Six+Caps&display=swap">
   <link rel="stylesheet" href="css/style.css">
   <script src="js/main.js" defer></script>
 </head>
 <body>
+
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <!-- TODO: images/logo.svg ができたら <img src="images/logo.svg" alt="ODDITIMANA"> に差し替え -->
+      <a class="site-logo" href="index.html">ODDITIMANA</a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="global-nav" aria-label="メニューを開く">
+        <span class="nav-toggle__bar"></span>
+      </button>
+      <nav class="global-nav" id="global-nav" aria-label="グローバルナビゲーション">
+        <ul class="global-nav__list">
+          <li><a class="global-nav__link" href="index.html" aria-current="page">WORKS</a></li>
+          <li><a class="global-nav__link" href="about/index.html">ABOUT</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <p class="hero__lead">IT IS A FREELANCE DESIGNER'S PORTFOLIO SITE.</p>
+        <h1 class="hero__title">WEB DESIGN &amp; CODING</h1>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="web-design-title">
+      <div class="container">
+        <h2 class="section-title" id="web-design-title">WEB DESIGN</h2>
+        <ul class="works-grid">
+          <li class="work-card">
+            <a class="work-card__link" href="works/ryuji/index.html">
+              <div class="work-card__image">
+                <img src="images/works/ryuji.webp" alt="" width="1600" height="897">
+              </div>
+              <div class="work-card__body">
+                <h3 class="work-card__title">映画『竜二』</h3>
+                <p class="work-card__label">DESIGN / CODING</p>
+              </div>
+            </a>
+          </li>
+          <li class="work-card">
+            <a class="work-card__link" href="works/cafoscari/index.html">
+              <div class="work-card__image">
+                <img src="images/works/cafoscarishortjapan.webp" alt="" width="1600" height="897">
+              </div>
+              <div class="work-card__body">
+                <h3 class="work-card__title">ベネチア・カフォスカリ短編映画祭 in JAPAN</h3>
+                <p class="work-card__label">WIREFRAME / DESIGN / CODING / WORDPRESS</p>
+              </div>
+            </a>
+          </li>
+          <li class="work-card">
+            <a class="work-card__link" href="works/every-tree/index.html">
+              <div class="work-card__image">
+                <img src="images/works/every_tree.webp" alt="" width="1600" height="897" loading="lazy">
+              </div>
+              <div class="work-card__body">
+                <h3 class="work-card__title">あだちファミリースペースevery tree</h3>
+                <p class="work-card__label">WIREFRAME / DESIGN / CODING / WORDPRESS</p>
+              </div>
+            </a>
+          </li>
+          <li class="work-card">
+            <a class="work-card__link" href="works/mameshiba/index.html">
+              <div class="work-card__image">
+                <img src="images/works/mameshiba.webp" alt="" width="1600" height="897" loading="lazy">
+              </div>
+              <div class="work-card__body">
+                <h3 class="work-card__title">豆柴堂</h3>
+                <p class="work-card__label">WORDPRESS UPDATE / PHP FIX / BANNER</p>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="flyer-design-title">
+      <div class="container">
+        <h2 class="section-title" id="flyer-design-title">FLYER DESIGN</h2>
+        <ul class="works-grid">
+          <li class="work-card">
+            <div class="work-card__image">
+              <img src="images/flyer/monolith.webp" alt="MONOLITH フライヤー（表面・裏面）" width="1600" height="1000" loading="lazy">
+            </div>
+            <div class="work-card__body">
+              <h3 class="work-card__title">MONOLITH</h3>
+              <p class="work-card__label">FLYER DESIGN</p>
+            </div>
+          </li>
+          <li class="work-card">
+            <div class="work-card__image">
+              <img src="images/flyer/5thanniversary.webp" alt="AZUL 5th ANNIVERSARY フライヤー（表面・裏面）" width="1600" height="1000" loading="lazy">
+            </div>
+            <div class="work-card__body">
+              <h3 class="work-card__title">AZUL 5th ANNIVERSARY</h3>
+              <p class="work-card__label">FLYER DESIGN</p>
+            </div>
+          </li>
+          <li class="work-card">
+            <div class="work-card__image">
+              <img src="images/flyer/wata_igarashi_2days.webp" alt="4 to the place - Wata Igarashi 2Days フライヤー（表面・裏面）" width="1600" height="1000" loading="lazy">
+            </div>
+            <div class="work-card__body">
+              <h3 class="work-card__title">4 to the place - Wata Igarashi 2Days</h3>
+              <p class="work-card__label">FLYER DESIGN</p>
+            </div>
+          </li>
+          <li class="work-card">
+            <div class="work-card__image">
+              <img src="images/flyer/sybil_mew.webp" alt="4 to the place - Sybil&amp;DJ mew フライヤー（表面・裏面）" width="1600" height="1000" loading="lazy">
+            </div>
+            <div class="work-card__body">
+              <h3 class="work-card__title">4 to the place - Sybil&amp;DJ mew</h3>
+              <p class="work-card__label">FLYER DESIGN</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <a class="site-footer__logo" href="index.html">ODDITIMANA</a>
+      <small class="site-footer__copy">Copyright &copy; 2026 ODDITIMANA</small>
+    </div>
+  </footer>
 
 </body>
 </html>
