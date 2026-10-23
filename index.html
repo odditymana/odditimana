@@ -13,7 +13,7 @@
 </head>
 <body>
 
-  <header class="site-header">
+  <header class="site-header site-header--overlay">
     <div class="container site-header__inner">
       <!-- TODO: images/logo.svg ができたら <img src="images/logo.svg" alt="ODDITIMANA"> に差し替え -->
       <a class="site-logo" href="index.html">ODDITIMANA</a>
@@ -31,16 +31,26 @@
 
   <main>
     <section class="hero">
-      <div class="container">
+      <div class="container hero__inner">
         <h1 class="hero__title">
           <span class="hero__label">KAZUKI ABE<span class="visually-hidden"> — </span></span>
-          <span class="hero__heading">WEB DESIGN &amp; CODING</span>
+          <span class="hero__heading">
+            <span class="hero__carve">
+              <span class="hero__line hero__line--1">WEB</span>
+              <span class="hero__line hero__line--2">DESIGN</span>
+              <span class="hero__line hero__line--3">&amp; CODING</span>
+            </span>
+          </span>
         </h1>
-        <p class="hero__text">
-          <span>大分で<wbr>Webサイトを<wbr>つくっています。</span><span>デザインもしますが、<wbr>コードを書いている<wbr>時間のほうが長いです。</span>
-        </p>
+        <p class="hero__venue">BASED IN OITA, JP</p>
       </div>
     </section>
+
+    <div class="container intro">
+      <p class="intro__text">
+        <span>大分で<wbr>Webサイトを<wbr>つくっています。</span><span>デザインもしますが、<wbr>コードを書いている<wbr>時間のほうが長いです。</span>
+      </p>
+    </div>
 
     <section class="section" aria-labelledby="websites-title">
       <div class="container">

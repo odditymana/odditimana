@@ -167,7 +167,7 @@ body.is-menu-open {
   display: block;
   width: 24px;
   height: 2px;
-  background-color: var(--color-text);
+  background-color: currentColor;
   transition: background-color var(--transition);
 }
 
@@ -178,7 +178,7 @@ body.is-menu-open {
   left: 0;
   width: 100%;
   height: 2px;
-  background-color: var(--color-text);
+  background-color: currentColor;
   transition: transform var(--transition);
 }
 
@@ -288,22 +288,72 @@ body.is-menu-open {
   }
 }
 
+/* 黒いヒーローの上に重ねるヘッダー（トップページ用）。
+   ロゴ・ナビ・ハンバーガーは currentColor で描くので、color だけで切り替わる */
+.site-header--overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  color: var(--color-bg);
+}
+
+.site-header--overlay :focus-visible {
+  outline-color: currentColor;
+}
+
+/* スマホでメニューを開いたときは背景がベージュになるので、黒に戻す */
+body.is-menu-open .site-header--overlay {
+  color: var(--color-text);
+}
+
 /* ==========================================================================
-   5. Hero
+   5. Hero（design-carve：黒地の一枚絵＋大見出しの削り出し演出）
    ========================================================================== */
+@property --carve-line {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 6px;
+}
+
 .hero {
-  padding-block: 48px 32px;
+  /* 演出の速さ（tools/README.md 参照） */
+  --carve-delay: 0.3s;
+  --carve-pass-duration: 1.6s;
+  --carve-finish-duration: 0.5s;
+
+  /* 大見出しを収める枠。幅はコンテナ、高さは画面の高さからヘッダーや余白を引いたもの
+     （100px = 上の余白 8 ＋ KAZUKI ABE の行 18 ＋ 見出しとの間 48 ＋ 下の余白 24 ＋ 調整分） */
+  --hero-w: min(100vw - var(--gutter) * 2, var(--container-width));
+  --hero-h: calc(100svh - var(--header-height) - 100px);
+
+  display: flex;
+  min-height: 100svh;
+  padding-block: calc(var(--header-height) + var(--space-xs)) var(--space-m);
+  overflow-x: clip;
+  background-color: #111;
+  color: var(--color-bg);
+}
+
+.hero__inner {
+  display: grid;
+}
+
+.hero__title,
+.hero__venue {
+  grid-area: 1 / 1;
 }
 
 .hero__title {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-l);
   font-weight: 400;
 }
 
-.hero__label {
-  display: flex;
-  align-items: center;
-  gap: var(--space-s);
-  margin-bottom: var(--space-s);
+.hero__label,
+.hero__venue {
   font-family: var(--font-body);
   font-size: 12px;
   font-weight: 700;
@@ -311,54 +361,215 @@ body.is-menu-open {
   letter-spacing: 0.08em;
 }
 
+.hero__label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-s);
+}
+
 .hero__label::before {
   content: "";
   flex-shrink: 0;
   width: 40px;
   height: 1px;
-  background-color: var(--color-line);
+  background-color: currentColor;
 }
 
+.hero__venue {
+  justify-self: end;
+  align-self: start;
+}
+
+/* 大見出し：スマホは「WEB / DESIGN / & CODING」の3行。
+   行ごとに文字サイズを変えて、どの行も横幅いっぱいにそろえる。
+   各行の幅は Six Caps で実測した値（文字サイズに対する倍率、少し余裕を足したもの）
+     WEB 0.87 / DESIGN 1.45 / & CODING 1.94
+   高さにも収まるよう、--hero-fit を「幅」と「高さ ÷ 2.12」の小さいほうにする
+     2.12 = 行の高さ 0.9 ×（1/0.87 + 1/1.45 + 1/1.94） */
 .hero__heading {
+  --hero-fit: max(min(var(--hero-w), var(--hero-h) / 2.12), 200px);
+  position: relative;
   display: block;
   font-family: var(--font-display);
-  font-size: clamp(72px, 19vw, 200px);
-  line-height: 0.95;
-  letter-spacing: 0.04em;
+  line-height: 0.9;
+  letter-spacing: 0.02em;
 }
 
-/* 改行は文と文の間、または <wbr> の位置だけで起こす */
-.hero__text {
-  margin-top: var(--space-m);
-  font-size: 15px;
-  font-weight: 400;
-  line-height: 2;
-  letter-spacing: 0.04em;
-  word-break: keep-all;
-  overflow-wrap: anywhere; /* 極端に狭い画面で横にはみ出さないための保険 */
+.hero__carve {
+  display: block;
 }
 
-.hero__text > span {
-  display: inline-block;
+.hero__line {
+  display: block;
+  white-space: nowrap;
+}
+
+.hero__line--1 {
+  font-size: calc(var(--hero-fit) / 0.87);
+}
+
+.hero__line--2 {
+  font-size: calc(var(--hero-fit) / 1.45);
+}
+
+.hero__line--3 {
+  font-size: calc(var(--hero-fit) / 1.94);
 }
 
 @media (min-width: 768px) {
   .hero {
-    padding-block: 80px 48px;
+    /* 160px = 上の余白 8 ＋ KAZUKI ABE の行 20 ＋ 見出しとの間 64 ＋ 下の余白 64 ＋ 調整分 */
+    --hero-h: calc(100svh - var(--header-height) - 160px);
+    padding-bottom: var(--space-l);
+  }
+
+  .hero__label,
+  .hero__venue {
+    font-size: 13px;
   }
 
   .hero__label {
     gap: var(--space-m);
-    margin-bottom: var(--space-m);
-    font-size: 13px;
   }
 
   .hero__label::before {
     width: 72px;
   }
 
-  .hero__text {
-    margin-top: 32px;
+  /* PCは「WEB DESIGN / & CODING」の2行で、同じ文字サイズ。2行目は右に寄せる。
+     「WEB DESIGN」の幅 2.43 を基準に、高さ側は 2.43 ÷（0.9 × 2行）= 1.35 倍まで */
+  .hero__heading {
+    --hero-fit: max(min(var(--hero-w), var(--hero-h) * 1.35), 320px);
+    font-size: calc(var(--hero-fit) / 2.43);
+  }
+
+  .hero__line--1,
+  .hero__line--2 {
+    display: inline;
+    font-size: inherit;
+  }
+
+  .hero__line--3 {
+    font-size: inherit;
+    text-align: right;
+  }
+}
+
+/* --- 削り出し演出 ---
+   ① carve-pass：clip-path で、上から段ごとに左右へ往復しながら見える範囲を広げる
+   ② mask-image：見えた部分を細い横線（削り跡）だけで見せる
+   ③ carve-finish：線の太さ（--carve-line）を 2px → 6px にして隙間を埋め、くっきり完成させる
+   刃先の光る線（::after）は、clip-path の影響を受けないよう .hero__carve の外側（.hero__heading）に付ける。
+   「視差効果を減らす」設定の人には何もしない＝最初から完成状態 */
+@media (prefers-reduced-motion: no-preference) {
+  .hero__carve {
+    -webkit-mask-image: repeating-linear-gradient(to bottom, #000 0 var(--carve-line), transparent var(--carve-line) 6px);
+    mask-image: repeating-linear-gradient(to bottom, #000 0 var(--carve-line), transparent var(--carve-line) 6px);
+    animation:
+      carve-pass var(--carve-pass-duration) linear var(--carve-delay) both,
+      carve-finish var(--carve-finish-duration) ease-out calc(var(--carve-delay) + var(--carve-pass-duration)) both;
+  }
+
+  .hero__heading::after {
+    content: "";
+    position: absolute;
+    width: clamp(24px, 4vw, 64px);
+    height: 2px;
+    background-color: var(--color-bg);
+    box-shadow: 0 0 12px 2px rgb(236 236 231 / 0.6);
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    pointer-events: none;
+    animation:
+      carve-tip var(--carve-pass-duration) linear var(--carve-delay) both,
+      carve-tip-fade var(--carve-pass-duration) step-end var(--carve-delay) both;
+  }
+}
+
+@keyframes carve-finish {
+  from {
+    --carve-line: 2px;
+  }
+
+  to {
+    --carve-line: 6px;
+  }
+}
+
+/* 削っている間だけ刃先を表示する */
+@keyframes carve-tip-fade {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+/* carve-keyframes:start */
+/* tools/carve-keyframes.mjs で生成（8段）。手で編集せず、スクリプトで作り直す */
+@keyframes carve-pass {
+  0% { clip-path: polygon(-2% -5%, 102% -5%, 102% -5%, -2% -5%, -2% 12.5%, -2% 12.5%, -2% -5%, -2% -5%); }
+  12.5% { clip-path: polygon(-2% -5%, 102% -5%, 102% -5%, 102% -5%, 102% 12.5%, -2% 12.5%, -2% -5%, -2% -5%); }
+  12.501% { clip-path: polygon(-2% -5%, 102% -5%, 102% 12.5%, 102% 12.5%, 102% 25%, 102% 25%, 102% 12.5%, -2% 12.5%); }
+  25% { clip-path: polygon(-2% -5%, 102% -5%, 102% 12.5%, 102% 12.5%, 102% 25%, -2% 25%, -2% 12.5%, -2% 12.5%); }
+  25.001% { clip-path: polygon(-2% -5%, 102% -5%, 102% 25%, -2% 25%, -2% 37.5%, -2% 37.5%, -2% 25%, -2% 25%); }
+  37.5% { clip-path: polygon(-2% -5%, 102% -5%, 102% 25%, 102% 25%, 102% 37.5%, -2% 37.5%, -2% 25%, -2% 25%); }
+  37.501% { clip-path: polygon(-2% -5%, 102% -5%, 102% 37.5%, 102% 37.5%, 102% 50%, 102% 50%, 102% 37.5%, -2% 37.5%); }
+  50% { clip-path: polygon(-2% -5%, 102% -5%, 102% 37.5%, 102% 37.5%, 102% 50%, -2% 50%, -2% 37.5%, -2% 37.5%); }
+  50.001% { clip-path: polygon(-2% -5%, 102% -5%, 102% 50%, -2% 50%, -2% 62.5%, -2% 62.5%, -2% 50%, -2% 50%); }
+  62.5% { clip-path: polygon(-2% -5%, 102% -5%, 102% 50%, 102% 50%, 102% 62.5%, -2% 62.5%, -2% 50%, -2% 50%); }
+  62.501% { clip-path: polygon(-2% -5%, 102% -5%, 102% 62.5%, 102% 62.5%, 102% 75%, 102% 75%, 102% 62.5%, -2% 62.5%); }
+  75% { clip-path: polygon(-2% -5%, 102% -5%, 102% 62.5%, 102% 62.5%, 102% 75%, -2% 75%, -2% 62.5%, -2% 62.5%); }
+  75.001% { clip-path: polygon(-2% -5%, 102% -5%, 102% 75%, -2% 75%, -2% 87.5%, -2% 87.5%, -2% 75%, -2% 75%); }
+  87.5% { clip-path: polygon(-2% -5%, 102% -5%, 102% 75%, 102% 75%, 102% 87.5%, -2% 87.5%, -2% 75%, -2% 75%); }
+  87.501% { clip-path: polygon(-2% -5%, 102% -5%, 102% 87.5%, 102% 87.5%, 102% 105%, 102% 105%, 102% 87.5%, -2% 87.5%); }
+  100% { clip-path: polygon(-2% -5%, 102% -5%, 102% 87.5%, 102% 87.5%, 102% 105%, -2% 105%, -2% 87.5%, -2% 87.5%); }
+}
+
+@keyframes carve-tip {
+  0% { left: 0%; top: 6.25%; }
+  12.5% { left: 100%; top: 6.25%; }
+  12.501% { left: 100%; top: 18.75%; }
+  25% { left: 0%; top: 18.75%; }
+  25.001% { left: 0%; top: 31.25%; }
+  37.5% { left: 100%; top: 31.25%; }
+  37.501% { left: 100%; top: 43.75%; }
+  50% { left: 0%; top: 43.75%; }
+  50.001% { left: 0%; top: 56.25%; }
+  62.5% { left: 100%; top: 56.25%; }
+  62.501% { left: 100%; top: 68.75%; }
+  75% { left: 0%; top: 68.75%; }
+  75.001% { left: 0%; top: 81.25%; }
+  87.5% { left: 100%; top: 81.25%; }
+  87.501% { left: 100%; top: 93.75%; }
+  100% { left: 0%; top: 93.75%; }
+}
+/* carve-keyframes:end */
+
+/* --------------------------------------------------------------------------
+   ヒーロー下の紹介文
+   -------------------------------------------------------------------------- */
+.intro {
+  padding-block: var(--space-l) var(--space-m);
+}
+
+/* 改行は文と文の間、または <wbr> の位置だけで起こす */
+.intro__text {
+  font-size: 15px;
+  line-height: 2;
+  letter-spacing: 0.04em;
+  word-break: keep-all;
+  overflow-wrap: anywhere; /* 極端に狭い画面で横にはみ出さないための保険 */
+}
+
+.intro__text > span {
+  display: inline-block;
+}
+
+@media (min-width: 768px) {
+  .intro__text {
     font-size: clamp(16px, 1.25vw, 18px);
   }
 }
