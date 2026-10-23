@@ -323,9 +323,14 @@ body.is-menu-open .site-header--overlay {
   --carve-finish-duration: 0.5s;
 
   /* 大見出しを収める枠。幅はコンテナ、高さは画面の高さからヘッダーや余白を引いたもの
-     （100px = 上の余白 8 ＋ KAZUKI ABE の行 18 ＋ 見出しとの間 48 ＋ 下の余白 24 ＋ 調整分） */
+     （200px = 上の余白 8 ＋ KAZUKI ABE の行 18 ＋ 見出しとの間 48 ＋ 説明文 3行と上の余白 約100 ＋ 下の余白 24） */
   --hero-w: min(100vw - var(--gutter) * 2, var(--container-width));
-  --hero-h: calc(100svh - var(--header-height) - 100px);
+  --hero-h: calc(100svh - var(--header-height) - 200px);
+
+  /* 大見出しの文字サイズ。スマホは3行とも同じ大きさで、
+     いちばん長い「& CODING」（幅 1.94em）が横幅の約88%になる大きさ（0.455 = 0.88 ÷ 1.94）。
+     高さ側は 3行 × 行の高さ 0.9 = 2.7em に収める */
+  --hero-fs: max(min(var(--hero-w) * 0.455, var(--hero-h) / 2.7), 96px);
 
   display: flex;
   min-height: 100svh;
@@ -335,8 +340,10 @@ body.is-menu-open .site-header--overlay {
   color: var(--color-bg);
 }
 
+/* 1行目に h1（大見出し）と BASED IN を重ね、2行目に説明文を置く */
 .hero__inner {
   display: grid;
+  grid-template-rows: 1fr auto;
 }
 
 .hero__title,
@@ -380,17 +387,15 @@ body.is-menu-open .site-header--overlay {
   align-self: start;
 }
 
-/* 大見出し：スマホは「WEB / DESIGN / & CODING」の3行。
-   行ごとに文字サイズを変えて、どの行も横幅いっぱいにそろえる。
+/* 大見出し：スマホは「WEB / DESIGN / & CODING」の3行、PCは「WEB DESIGN / & CODING」の2行。
+   どちらも「& CODING」の行を右に寄せて、左上から右下への流れを作る。
    各行の幅は Six Caps で実測した値（文字サイズに対する倍率、少し余裕を足したもの）
-     WEB 0.87 / DESIGN 1.45 / & CODING 1.94
-   高さにも収まるよう、--hero-fit を「幅」と「高さ ÷ 2.12」の小さいほうにする
-     2.12 = 行の高さ 0.9 ×（1/0.87 + 1/1.45 + 1/1.94） */
+     & CODING 1.94 / WEB DESIGN 2.43 */
 .hero__heading {
-  --hero-fit: max(min(var(--hero-w), var(--hero-h) / 2.12), 200px);
   position: relative;
   display: block;
   font-family: var(--font-display);
+  font-size: var(--hero-fs);
   line-height: 0.9;
   letter-spacing: 0.02em;
 }
@@ -404,22 +409,32 @@ body.is-menu-open .site-header--overlay {
   white-space: nowrap;
 }
 
-.hero__line--1 {
-  font-size: calc(var(--hero-fit) / 0.87);
-}
-
-.hero__line--2 {
-  font-size: calc(var(--hero-fit) / 1.45);
-}
-
 .hero__line--3 {
-  font-size: calc(var(--hero-fit) / 1.94);
+  text-align: right;
+}
+
+/* ポスターの説明文のように小さく添える。
+   改行は文と文の間、または <wbr> の位置だけで起こす */
+.hero__text {
+  grid-row: 2;
+  margin-top: var(--space-m);
+  font-size: 13px;
+  line-height: 1.9;
+  letter-spacing: 0.04em;
+  word-break: keep-all;
+  overflow-wrap: anywhere; /* 極端に狭い画面で横にはみ出さないための保険 */
+}
+
+.hero__text > span {
+  display: inline-block;
 }
 
 @media (min-width: 768px) {
   .hero {
-    /* 160px = 上の余白 8 ＋ KAZUKI ABE の行 20 ＋ 見出しとの間 64 ＋ 下の余白 64 ＋ 調整分 */
-    --hero-h: calc(100svh - var(--header-height) - 160px);
+    /* 240px = 上の余白 8 ＋ KAZUKI ABE の行 20 ＋ 見出しとの間 64 ＋ 説明文 2行と上の余白 約80 ＋ 下の余白 64 */
+    --hero-h: calc(100svh - var(--header-height) - 240px);
+    /* 「WEB DESIGN」（幅 2.43em）が枠の幅に収まり、2行 × 0.9 = 1.8em が高さに収まる大きさ */
+    --hero-fs: max(min(var(--hero-w) / 2.43, var(--hero-h) / 1.8), 132px);
     padding-bottom: var(--space-l);
   }
 
@@ -436,22 +451,32 @@ body.is-menu-open .site-header--overlay {
     width: 72px;
   }
 
-  /* PCは「WEB DESIGN / & CODING」の2行で、同じ文字サイズ。2行目は右に寄せる。
-     「WEB DESIGN」の幅 2.43 を基準に、高さ側は 2.43 ÷（0.9 × 2行）= 1.35 倍まで */
-  .hero__heading {
-    --hero-fit: max(min(var(--hero-w), var(--hero-h) * 1.35), 320px);
-    font-size: calc(var(--hero-fit) / 2.43);
-  }
-
   .hero__line--1,
   .hero__line--2 {
     display: inline;
-    font-size: inherit;
   }
 
-  .hero__line--3 {
-    font-size: inherit;
-    text-align: right;
+  .hero__text {
+    font-size: 14px;
+    line-height: 1.8;
+  }
+}
+
+/* 1024px以上は、説明文を「& CODING」の左の空き（大見出しの下端）に重ねる。
+   置ける幅 = 枠の幅 − 「& CODING」の幅（1.94em）− 余白 */
+@media (min-width: 1024px) {
+  .hero {
+    /* 説明文が大見出しの横に入るので、高さから引くのは 160px（上の余白〜下の余白、説明文の分なし） */
+    --hero-h: calc(100svh - var(--header-height) - 160px);
+  }
+
+  .hero__text {
+    grid-area: 1 / 1;
+    align-self: end;
+    justify-self: start;
+    max-width: calc(var(--hero-w) - var(--hero-fs) * 1.94 - var(--space-l));
+    margin-top: 0;
+    font-size: 15px;
   }
 }
 
@@ -483,6 +508,18 @@ body.is-menu-open .site-header--overlay {
     animation:
       carve-tip var(--carve-pass-duration) linear var(--carve-delay) both,
       carve-tip-fade var(--carve-pass-duration) step-end var(--carve-delay) both;
+  }
+
+  /* 説明文は削り出しが終わってから、少し下からふわっと表示する */
+  .hero__text {
+    animation: hero-text-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--carve-delay) + var(--carve-pass-duration) + var(--carve-finish-duration)) both;
+  }
+}
+
+@keyframes hero-text-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
   }
 }
 
@@ -548,37 +585,15 @@ body.is-menu-open .site-header--overlay {
 }
 /* carve-keyframes:end */
 
-/* --------------------------------------------------------------------------
-   ヒーロー下の紹介文
-   -------------------------------------------------------------------------- */
-.intro {
-  padding-block: var(--space-l) var(--space-m);
-}
-
-/* 改行は文と文の間、または <wbr> の位置だけで起こす */
-.intro__text {
-  font-size: 15px;
-  line-height: 2;
-  letter-spacing: 0.04em;
-  word-break: keep-all;
-  overflow-wrap: anywhere; /* 極端に狭い画面で横にはみ出さないための保険 */
-}
-
-.intro__text > span {
-  display: inline-block;
-}
-
-@media (min-width: 768px) {
-  .intro__text {
-    font-size: clamp(16px, 1.25vw, 18px);
-  }
-}
-
 /* ==========================================================================
    6. Section
    ========================================================================== */
 .section {
   padding-bottom: var(--space-xl);
+}
+
+.hero + .section {
+  padding-top: calc(var(--space-l) + var(--space-m));
 }
 
 .section-title {
@@ -607,7 +622,7 @@ body.is-menu-open .site-header--overlay {
 
 .work-card__image img {
   width: 100%;
-  transition: transform 0.6s ease;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .work-card__body {
@@ -620,6 +635,19 @@ body.is-menu-open .site-header--overlay {
   line-height: 1.5;
 }
 
+/* タイトルの下の細い線（ヒーローの「削る」線と同じモチーフ）。
+   普段は幅0で、ホバー・フォーカスで左から右へ伸びる。場所は常に確保してレイアウトをずらさない */
+.work-card__title::after {
+  content: "";
+  display: block;
+  height: 1px;
+  margin-top: 6px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 .work-card__label {
   margin-top: 4px;
   color: var(--color-label);
@@ -630,10 +658,6 @@ body.is-menu-open .site-header--overlay {
 
 a.work-card__link {
   display: block;
-}
-
-a.work-card__link:hover .work-card__image img {
-  transform: scale(1.04);
 }
 
 /* フライヤー：画像部分のボタンをカード全体に広げる */
@@ -665,8 +689,34 @@ a.work-card__link:hover .work-card__image img {
   outline-offset: 4px;
 }
 
-.work-card--zoom:hover .work-card__image img {
-  transform: scale(1.04);
+/* ホバー（マウスのある端末だけ）とキーボードフォーカスで同じ見た目にする。
+   フライヤーはタイトルがボタンの外にあるので :has() でカード側から判定する。
+   「視差効果を減らす」設定の人は、画像は拡大せず、線は動かさずにすぐ表示する
+   （transition は 10. Utility の prefers-reduced-motion でまとめて止めている） */
+a.work-card__link:focus-visible .work-card__title::after,
+.work-card--zoom:has(.work-card__zoom:focus-visible) .work-card__title::after {
+  transform: scaleX(1);
+}
+
+@media (hover: hover) {
+  a.work-card__link:hover .work-card__title::after,
+  .work-card--zoom:hover .work-card__title::after {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a.work-card__link:focus-visible .work-card__image img,
+  .work-card--zoom:has(.work-card__zoom:focus-visible) .work-card__image img {
+    transform: scale(1.03);
+  }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  a.work-card__link:hover .work-card__image img,
+  .work-card--zoom:hover .work-card__image img {
+    transform: scale(1.03);
+  }
 }
 
 @media (min-width: 768px) {
