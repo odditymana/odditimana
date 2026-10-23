@@ -32,14 +32,19 @@
   <main>
     <section class="hero">
       <div class="container">
-        <p class="hero__lead">IT IS A FREELANCE DESIGNER'S PORTFOLIO SITE.</p>
-        <h1 class="hero__title">WEB DESIGN &amp; CODING</h1>
+        <h1 class="hero__title">
+          <span class="hero__label">KAZUKI ABE<span class="visually-hidden"> — </span></span>
+          <span class="hero__heading">WEB DESIGN &amp; CODING</span>
+        </h1>
+        <p class="hero__text">
+          <span>大分で<wbr>Webサイトを<wbr>つくっています。</span><span>デザインもしますが、<wbr>コードを書いている<wbr>時間のほうが長いです。</span>
+        </p>
       </div>
     </section>
 
-    <section class="section" aria-labelledby="web-design-title">
+    <section class="section" aria-labelledby="websites-title">
       <div class="container">
-        <h2 class="section-title" id="web-design-title">WEB DESIGN</h2>
+        <h2 class="section-title" id="websites-title">WEBSITES</h2>
         <ul class="works-grid">
           <li class="work-card">
             <a class="work-card__link" href="works/ryuji/index.html">
@@ -89,41 +94,41 @@
       </div>
     </section>
 
-    <section class="section" aria-labelledby="flyer-design-title">
+    <section class="section" aria-labelledby="flyers-title">
       <div class="container">
-        <h2 class="section-title" id="flyer-design-title">FLYER DESIGN</h2>
+        <h2 class="section-title" id="flyers-title">FLYERS</h2>
         <ul class="works-grid">
-          <li class="work-card">
-            <div class="work-card__image">
+          <li class="work-card work-card--zoom">
+            <button class="work-card__image work-card__zoom" type="button" data-large="images/flyer/monolith-large.webp" aria-haspopup="dialog" aria-label="MONOLITH のフライヤーを拡大表示">
               <img src="images/flyer/monolith.webp" alt="MONOLITH フライヤー（表面・裏面）" width="1600" height="1000" loading="lazy">
-            </div>
+            </button>
             <div class="work-card__body">
               <h3 class="work-card__title">MONOLITH</h3>
               <p class="work-card__label">FLYER DESIGN</p>
             </div>
           </li>
-          <li class="work-card">
-            <div class="work-card__image">
+          <li class="work-card work-card--zoom">
+            <button class="work-card__image work-card__zoom" type="button" data-large="images/flyer/5thanniversary-large.webp" aria-haspopup="dialog" aria-label="AZUL 5th ANNIVERSARY のフライヤーを拡大表示">
               <img src="images/flyer/5thanniversary.webp" alt="AZUL 5th ANNIVERSARY フライヤー（表面・裏面）" width="1600" height="1000" loading="lazy">
-            </div>
+            </button>
             <div class="work-card__body">
               <h3 class="work-card__title">AZUL 5th ANNIVERSARY</h3>
               <p class="work-card__label">FLYER DESIGN</p>
             </div>
           </li>
-          <li class="work-card">
-            <div class="work-card__image">
+          <li class="work-card work-card--zoom">
+            <button class="work-card__image work-card__zoom" type="button" data-large="images/flyer/wata_igarashi_2days-large.webp" aria-haspopup="dialog" aria-label="4 to the place - Wata Igarashi 2Days のフライヤーを拡大表示">
               <img src="images/flyer/wata_igarashi_2days.webp" alt="4 to the place - Wata Igarashi 2Days フライヤー（表面・裏面）" width="1600" height="1000" loading="lazy">
-            </div>
+            </button>
             <div class="work-card__body">
               <h3 class="work-card__title">4 to the place - Wata Igarashi 2Days</h3>
               <p class="work-card__label">FLYER DESIGN</p>
             </div>
           </li>
-          <li class="work-card">
-            <div class="work-card__image">
+          <li class="work-card work-card--zoom">
+            <button class="work-card__image work-card__zoom" type="button" data-large="images/flyer/sybil_mew-large.webp" aria-haspopup="dialog" aria-label="4 to the place - Sybil&amp;DJ mew のフライヤーを拡大表示">
               <img src="images/flyer/sybil_mew.webp" alt="4 to the place - Sybil&amp;DJ mew フライヤー（表面・裏面）" width="1600" height="1000" loading="lazy">
-            </div>
+            </button>
             <div class="work-card__body">
               <h3 class="work-card__title">4 to the place - Sybil&amp;DJ mew</h3>
               <p class="work-card__label">FLYER DESIGN</p>
@@ -133,6 +138,11 @@
       </div>
     </section>
   </main>
+
+  <dialog class="lightbox" aria-label="フライヤーの拡大表示">
+    <button class="lightbox__close" type="button" aria-label="閉じる"></button>
+    <img class="lightbox__image" alt="">
+  </dialog>
 
   <footer class="site-footer">
     <div class="container">

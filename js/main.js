@@ -32,3 +32,47 @@ if (navToggle && globalNav) {
     if (e.matches) setMenu(false);
   });
 }
+
+// フライヤーの拡大表示（ライトボックス）
+const lightbox = document.querySelector('.lightbox');
+
+if (lightbox) {
+  const lightboxImage = lightbox.querySelector('.lightbox__image');
+  const closeButton = lightbox.querySelector('.lightbox__close');
+  let opener = null;
+
+  const openLightbox = (button) => {
+    const thumb = button.querySelector('img');
+    const largeSrc = button.dataset.large;
+
+    opener = button;
+    // 読み込み済みの一覧用画像を先に出し、拡大用は開いたときに読み込んで差し替える
+    lightboxImage.src = thumb.currentSrc || thumb.src;
+    lightboxImage.alt = thumb.alt;
+    lightbox.showModal();
+
+    const large = new Image();
+    large.onload = () => {
+      if (lightbox.open && opener === button) lightboxImage.src = largeSrc;
+    };
+    large.src = largeSrc;
+  };
+
+  document.querySelectorAll('.work-card__zoom').forEach((button) => {
+    button.addEventListener('click', () => openLightbox(button));
+  });
+
+  closeButton.addEventListener('click', () => lightbox.close());
+
+  // 画像以外（背景）をクリックしたら閉じる
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) lightbox.close();
+  });
+
+  // Escキーでの close も含め、閉じたら元のボタンにフォーカスを戻す
+  lightbox.addEventListener('close', () => {
+    lightboxImage.removeAttribute('src');
+    if (opener) opener.focus();
+    opener = null;
+  });
+}

@@ -292,23 +292,26 @@ body.is-menu-open {
    5. Hero
    ========================================================================== */
 .hero {
-  display: flex;
-  align-items: center;
-  min-height: min(calc(45svh - var(--header-height)), 360px);
-  padding-block: var(--space-l);
+  padding-block: 48px 32px;
 }
 
-.hero__lead {
+.hero__title {
+  font-weight: 400;
+}
+
+.hero__label {
   display: flex;
   align-items: center;
   gap: var(--space-s);
   margin-bottom: var(--space-s);
-  font-size: 11px;
+  font-family: var(--font-body);
+  font-size: 12px;
   font-weight: 700;
+  line-height: 1.5;
   letter-spacing: 0.08em;
 }
 
-.hero__lead::before {
+.hero__label::before {
   content: "";
   flex-shrink: 0;
   width: 40px;
@@ -316,26 +319,47 @@ body.is-menu-open {
   background-color: var(--color-line);
 }
 
-.hero__title {
+.hero__heading {
+  display: block;
   font-family: var(--font-display);
   font-size: clamp(72px, 19vw, 200px);
-  font-weight: 400;
   line-height: 0.95;
   letter-spacing: 0.04em;
 }
 
+/* 改行は文と文の間、または <wbr> の位置だけで起こす */
+.hero__text {
+  margin-top: var(--space-m);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 2;
+  letter-spacing: 0.04em;
+  word-break: keep-all;
+  overflow-wrap: anywhere; /* 極端に狭い画面で横にはみ出さないための保険 */
+}
+
+.hero__text > span {
+  display: inline-block;
+}
+
 @media (min-width: 768px) {
   .hero {
-    min-height: min(calc(50svh - var(--header-height)), 480px);
+    padding-block: 80px 48px;
   }
 
-  .hero__lead {
+  .hero__label {
     gap: var(--space-m);
+    margin-bottom: var(--space-m);
     font-size: 13px;
   }
 
-  .hero__lead::before {
+  .hero__label::before {
     width: 72px;
+  }
+
+  .hero__text {
+    margin-top: 32px;
+    font-size: clamp(16px, 1.25vw, 18px);
   }
 }
 
@@ -351,7 +375,7 @@ body.is-menu-open {
   padding-bottom: var(--space-s);
   border-bottom: 2px solid var(--color-line);
   font-family: var(--font-display);
-  font-size: clamp(64px, 16vw, 120px);
+  font-size: clamp(48px, 12.8vw, 88px);
   font-weight: 400;
   line-height: 1;
   letter-spacing: 0.2em;
@@ -401,6 +425,39 @@ a.work-card__link:hover .work-card__image img {
   transform: scale(1.04);
 }
 
+/* フライヤー：画像部分のボタンをカード全体に広げる */
+.work-card--zoom {
+  position: relative;
+}
+
+.work-card__zoom {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
+
+.work-card__zoom::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.work-card__zoom:focus-visible {
+  outline: none;
+}
+
+.work-card__zoom:focus-visible::after {
+  outline: 2px solid var(--color-text);
+  outline-offset: 4px;
+}
+
+.work-card--zoom:hover .work-card__image img {
+  transform: scale(1.04);
+}
+
 @media (min-width: 768px) {
   .works-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -445,7 +502,98 @@ a.work-card__link:hover .work-card__image img {
 }
 
 /* ==========================================================================
-   9. Utility
+   9. Lightbox
+   ========================================================================== */
+.lightbox {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 56px var(--space-s) var(--space-s);
+  border: 0;
+  background: none;
+  overscroll-behavior: contain;
+}
+
+.lightbox::backdrop {
+  background-color: rgb(0 0 0 / 0.92);
+}
+
+.lightbox[open] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: lightbox-fade 0.25s ease;
+}
+
+.lightbox__image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  touch-action: pinch-zoom;
+}
+
+.lightbox__close {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.lightbox__close::before,
+.lightbox__close::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 24px;
+  height: 2px;
+  background-color: #fff;
+}
+
+.lightbox__close::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.lightbox__close::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.lightbox__close:focus-visible {
+  outline-color: #fff;
+  outline-offset: 0;
+}
+
+/* 開いている間は背面をスクロールさせない */
+body:has(.lightbox[open]) {
+  overflow: hidden;
+}
+
+@keyframes lightbox-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (min-width: 768px) {
+  .lightbox {
+    padding: 64px;
+  }
+
+  .lightbox__close {
+    top: 12px;
+    right: 12px;
+  }
+}
+
+/* ==========================================================================
+   10. Utility
    ========================================================================== */
 .visually-hidden {
   position: absolute;
@@ -464,5 +612,6 @@ a.work-card__link:hover .work-card__image img {
   *::before,
   *::after {
     transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
   }
 }
