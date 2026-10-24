@@ -28,13 +28,87 @@
     </div>
   </header>
 
-  <main>
+  <main class="about">
+    <div class="container">
+      <h1 class="section-title about__title">ABOUT</h1>
 
+      <section class="profile" aria-labelledby="profile-name">
+        <div class="profile__body">
+          <h2 class="profile__name" id="profile-name">
+            <span class="profile__name-ja">安部 知樹</span>
+            <span class="profile__name-en" lang="en">KAZUKI ABE</span>
+          </h2>
+          <p class="profile__role" lang="en">Web Designer / Coder</p>
+          <p class="profile__text">
+            <span>大分で<wbr>Webサイトを<wbr>つくっています。</span><br>
+            <span>デザインもしますが、<wbr>コードを書いている<wbr>時間のほうが長いです。</span><br>
+            <span>金属を削って12年、<wbr>Webに来て6年。</span><br>
+            <span>削るものが、<wbr>鉄からコードに<wbr>変わりました。</span><br>
+            <span>週末はたまにDJ。<wbr>フライヤーもつくります。</span>
+          </p>
+        </div>
+        <figure class="profile__photo">
+          <img src="../images/about/profile_image.webp" alt="DJブースでプレイする安部 知樹" width="1200" height="1200">
+        </figure>
+      </section>
+
+      <section class="about-section" aria-labelledby="skills-title">
+        <h2 class="about-heading" id="skills-title">SKILLS</h2>
+        <dl class="about-list">
+          <div class="about-list__row">
+            <dt>CODING</dt>
+            <dd>HTML / CSS / JavaScript / WordPress / PHP</dd>
+          </div>
+          <div class="about-list__row">
+            <dt>DESIGN</dt>
+            <dd>Figma / Photoshop / Illustrator</dd>
+          </div>
+          <div class="about-list__row">
+            <dt>TOOLS</dt>
+            <dd>Git / GitHub / Claude Code</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="about-section" aria-labelledby="history-title">
+        <h2 class="about-heading" id="history-title">HISTORY</h2>
+        <dl class="about-list">
+          <div class="about-list__row">
+            <dt>2007</dt>
+            <dd>機械加工・<wbr>CAD設計の<wbr>仕事に就く</dd>
+          </div>
+          <div class="about-list__row">
+            <dt>2019</dt>
+            <dd>レコード店で<wbr>働きながら<wbr>海外を巡り、<wbr>Webを独学</dd>
+          </div>
+          <div class="about-list__row">
+            <dt>2020</dt>
+            <dd>Web制作会社で<wbr>デザイン・コーディングを担当</dd>
+          </div>
+          <div class="about-list__row">
+            <dt>2023</dt>
+            <dd>フリーランスとして独立</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="about-section" aria-labelledby="contact-title">
+        <h2 class="about-heading" id="contact-title">CONTACT</h2>
+        <ul class="contact-list">
+          <li><a class="line-link" href="mailto:hello@odditimana.com">hello@odditimana.com</a></li>
+          <li><a class="line-link" href="https://github.com/odditymana" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+      </section>
+    </div>
   </main>
 
   <footer class="site-footer">
     <div class="container">
       <a class="site-footer__logo" href="../index.html">ODDITIMANA</a>
+      <ul class="site-footer__links">
+        <li><a class="line-link" href="mailto:hello@odditimana.com">hello@odditimana.com</a></li>
+        <li><a class="line-link" href="https://github.com/odditymana" target="_blank" rel="noopener">GitHub</a></li>
+      </ul>
       <small class="site-footer__copy">Copyright &copy; 2026 ODDITIMANA</small>
     </div>
   </footer>
