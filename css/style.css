@@ -284,8 +284,9 @@ body.is-menu-open {
     transition: transform var(--transition);
   }
 
+  /* aria-current は、そのページ自体なら "page"、作品詳細のように配下のページなら "true" */
   .global-nav__link:hover::after,
-  .global-nav__link[aria-current="page"]::after {
+  .global-nav__link[aria-current]::after {
     transform: scaleX(1);
   }
 }
@@ -609,6 +610,50 @@ body.is-menu-open .site-header--overlay {
   letter-spacing: 0.2em;
 }
 
+/* 項目名と中身の2列（ABOUT の SKILLS・HISTORY、作品詳細の情報）。
+   行は細い線で区切る（ヒーローの「削る」線と同じモチーフ） */
+.info-list {
+  margin: 0;
+}
+
+.info-list__row {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  align-items: baseline;
+  gap: var(--space-s);
+  padding-block: var(--space-s);
+  border-bottom: 1px solid var(--color-line-light);
+}
+
+.info-list dt {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.info-list dd {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.8;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+@media (min-width: 768px) {
+  .info-list__row {
+    grid-template-columns: 160px 1fr;
+    gap: var(--space-m);
+  }
+
+  .info-list dt {
+    font-size: 13px;
+  }
+
+  .info-list dd {
+    font-size: 16px;
+  }
+}
+
 /* ==========================================================================
    7. Works
    ========================================================================== */
@@ -694,7 +739,7 @@ a.work-card__link {
 /* ホバー（マウスのある端末だけ）とキーボードフォーカスで同じ見た目にする。
    フライヤーはタイトルがボタンの外にあるので :has() でカード側から判定する。
    「視差効果を減らす」設定の人は、画像は拡大せず、線は動かさずにすぐ表示する
-   （transition は 11. Utility の prefers-reduced-motion でまとめて止めている） */
+   （transition は 12. Utility の prefers-reduced-motion でまとめて止めている） */
 a.work-card__link:focus-visible .work-card__title::after,
 .work-card--zoom:has(.work-card__zoom:focus-visible) .work-card__title::after {
   transform: scaleX(1);
@@ -848,6 +893,24 @@ a.work-card__link:focus-visible .work-card__title::after,
   outline-offset: 0;
 }
 
+/* 縦に長い画面キャプチャ（data-lightbox="tall"）：画面に収めると文字が読めないので、
+   横幅に合わせて表示し、ライトボックスの中を縦にスクロールして見る */
+.lightbox--tall[open] {
+  display: block;
+  overflow-y: auto;
+}
+
+.lightbox--tall .lightbox__image {
+  max-height: none;
+  margin-inline: auto;
+}
+
+/* スクロールしても閉じるボタンが見えるよう画面に固定し、明るいキャプチャの上でも見える背景を付ける */
+.lightbox--tall .lightbox__close {
+  position: fixed;
+  background-color: rgb(0 0 0 / 0.6);
+}
+
 /* 開いている間は背面をスクロールさせない */
 body:has(.lightbox[open]) {
   overflow: hidden;
@@ -941,7 +1004,9 @@ body:has(.lightbox[open]) {
   margin-top: var(--space-xl);
 }
 
-.about-heading {
+/* 作品詳細の「PC」「SMARTPHONE」も同じ見出しにする */
+.about-heading,
+.work-shots__title {
   margin-bottom: var(--space-s);
   padding-bottom: var(--space-xs);
   border-bottom: 1px solid var(--color-line);
@@ -950,34 +1015,6 @@ body:has(.lightbox[open]) {
   font-weight: 400;
   line-height: 1;
   letter-spacing: 0.2em;
-}
-
-/* 項目名と中身の2列。行は細い線で区切る（ヒーローの「削る」線と同じモチーフ） */
-.about-list {
-  margin: 0;
-}
-
-.about-list__row {
-  display: grid;
-  grid-template-columns: 80px 1fr;
-  align-items: baseline;
-  gap: var(--space-s);
-  padding-block: var(--space-s);
-  border-bottom: 1px solid var(--color-line-light);
-}
-
-.about-list dt {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-}
-
-.about-list dd {
-  margin: 0;
-  font-size: 15px;
-  line-height: 1.8;
-  word-break: keep-all;
-  overflow-wrap: anywhere;
 }
 
 .contact-list {
@@ -1013,27 +1050,152 @@ body:has(.lightbox[open]) {
     font-size: clamp(16px, 1.2vw, 17px);
   }
 
-  .about-heading {
+  .about-heading,
+  .work-shots__title {
     font-size: 56px;
   }
 
-  .about-list__row {
-    grid-template-columns: 160px 1fr;
-    gap: var(--space-m);
-  }
-
-  .about-list dt {
-    font-size: 13px;
-  }
-
-  .about-list dd,
   .contact-list {
     font-size: 16px;
   }
 }
 
 /* ==========================================================================
-   11. Utility
+   11. Work detail（works/ 以下の作品詳細ページ共通）
+   ========================================================================== */
+.work-detail {
+  padding-block: var(--space-s) var(--space-xl);
+}
+
+.work-detail__mockup {
+  margin: 0;
+}
+
+.work-detail__mockup img {
+  width: 100%;
+}
+
+/* 作品名も <wbr> の位置（と半角スペース）だけで改行する */
+.work-detail__title {
+  margin-top: var(--space-l);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+/* 改行は文と文の間、または <wbr> の位置だけで起こす */
+.work-detail__lead {
+  margin-top: var(--space-m);
+  font-size: 15px;
+  line-height: 2;
+  letter-spacing: 0.04em;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+.work-detail__info {
+  margin-top: var(--space-l);
+  border-top: 1px solid var(--color-line);
+}
+
+.work-shots {
+  margin-top: var(--space-xl);
+}
+
+/* 画面キャプチャ：PCは縦に1列、スマホ画面（--sp）はPC幅で横2列 */
+.shot-list {
+  display: grid;
+  gap: var(--space-l);
+}
+
+/* キャプチャの背景が明るくても地の色に溶けないよう、細い線で囲む */
+.shot__zoom {
+  display: block;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--color-line-light);
+  background: none;
+  cursor: zoom-in;
+}
+
+.shot__zoom img {
+  width: 100%;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.shot__caption {
+  margin-top: var(--space-s);
+  font-size: 14px;
+  line-height: 1.9;
+  letter-spacing: 0.04em;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+/* 作品カードと同じく、ホバー（マウスのある端末だけ）とキーボードフォーカスで少し拡大する */
+@media (prefers-reduced-motion: no-preference) {
+  .shot__zoom:focus-visible img {
+    transform: scale(1.03);
+  }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .shot__zoom:hover img {
+    transform: scale(1.03);
+  }
+}
+
+.work-pager {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-m);
+  margin-top: var(--space-xl);
+  padding-top: var(--space-m);
+  border-top: 1px solid var(--color-line);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+@media (min-width: 768px) {
+  .work-detail {
+    padding-top: var(--space-m);
+  }
+
+  .work-detail__title {
+    font-size: 32px;
+  }
+
+  .work-detail__lead {
+    font-size: clamp(16px, 1.2vw, 17px);
+  }
+
+  .shot-list {
+    gap: var(--space-xl);
+  }
+
+  /* 縦長の画面を横に2枚。幅いっぱいだと高くなりすぎるので、並びの幅を抑える */
+  .shot-list--sp {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-l);
+    max-width: 800px;
+  }
+
+  .shot__caption {
+    font-size: 15px;
+  }
+
+  .work-pager {
+    font-size: 16px;
+  }
+}
+
+/* ==========================================================================
+   12. Utility
    ========================================================================== */
 .visually-hidden {
   position: absolute;

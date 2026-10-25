@@ -33,7 +33,8 @@ if (navToggle && globalNav) {
   });
 }
 
-// フライヤーの拡大表示（ライトボックス）
+// 画像の拡大表示（ライトボックス）。トップのフライヤーと作品詳細の画面キャプチャで共通。
+// data-large を持つボタンが対象で、data-lightbox="tall" なら縦スクロールで全体を見せる
 const lightbox = document.querySelector('.lightbox');
 
 if (lightbox) {
@@ -49,7 +50,9 @@ if (lightbox) {
     // 読み込み済みの一覧用画像を先に出し、拡大用は開いたときに読み込んで差し替える
     lightboxImage.src = thumb.currentSrc || thumb.src;
     lightboxImage.alt = thumb.alt;
+    lightbox.classList.toggle('lightbox--tall', button.dataset.lightbox === 'tall');
     lightbox.showModal();
+    lightbox.scrollTop = 0;
 
     const large = new Image();
     large.onload = () => {
@@ -58,7 +61,7 @@ if (lightbox) {
     large.src = largeSrc;
   };
 
-  document.querySelectorAll('.work-card__zoom').forEach((button) => {
+  document.querySelectorAll('button[data-large]').forEach((button) => {
     button.addEventListener('click', () => openLightbox(button));
   });
 
