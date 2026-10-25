@@ -310,6 +310,11 @@ body.is-menu-open .site-header--overlay {
   color: var(--color-text);
 }
 
+/* 明るい画像の上に重ねるヘッダー（作品詳細ページ用）。重ね方は同じで、文字は黒のまま */
+.site-header--on-light {
+  color: var(--color-text);
+}
+
 /* ==========================================================================
    5. Hero（design-carve：黒地の一枚絵＋大見出しの削り出し演出）
    ========================================================================== */
@@ -1064,15 +1069,27 @@ body:has(.lightbox[open]) {
    11. Work detail（works/ 以下の作品詳細ページ共通）
    ========================================================================== */
 .work-detail {
-  padding-block: var(--space-s) var(--space-xl);
+  padding-bottom: var(--space-xl);
 }
 
-.work-detail__mockup {
+/* ヒーロー：モックアップを画面幅いっぱいに表示し、ヘッダーを上に重ねる。
+   スマホは正方形に切り抜き、ノートPCの画面を主役にする。
+   切り抜く範囲は元画像（2560×1434）の座標で指定する。モックアップは4作品とも同じ構図なので共通の値
+     横：ふた（307〜1600）の左右に約30pxの余白を足した 277〜1630（幅 1353）
+     縦：画像の上端から 1353 まで（ふたの上端 307 がヘッダーの下に来て、台座の下にオレンジが少し残る） */
+.work-detail__hero {
+  --crop-x: 277;
+  --crop-w: 1353;
+
+  aspect-ratio: 1 / 1;
   margin: 0;
+  overflow: hidden;
 }
 
-.work-detail__mockup img {
-  width: 100%;
+.work-detail__hero img {
+  width: calc(2560 / var(--crop-w) * 100%);
+  max-width: none;
+  margin-left: calc(var(--crop-x) / var(--crop-w) * -100%);
 }
 
 /* 作品名も <wbr> の位置（と半角スペース）だけで改行する */
@@ -1149,8 +1166,10 @@ body:has(.lightbox[open]) {
   }
 }
 
+/* 「一覧に戻る」は、右の「次の作品」の作品名の行に高さを揃える */
 .work-pager {
   display: flex;
+  align-items: flex-end;
   justify-content: space-between;
   gap: var(--space-m);
   margin-top: var(--space-xl);
@@ -1161,9 +1180,48 @@ body:has(.lightbox[open]) {
   letter-spacing: 0.08em;
 }
 
+.work-pager__link {
+  flex-shrink: 0;
+}
+
+.work-pager__next {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  text-align: right;
+}
+
+.work-pager__label {
+  color: var(--color-label);
+  font-size: 12px;
+}
+
+.work-pager__title {
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+/* ラベルを含むリンク全体のホバー・フォーカスで、作品名の下に線を伸ばす */
+.work-pager__next:focus-visible .work-pager__title::after {
+  transform: scaleX(1);
+}
+
+@media (hover: hover) {
+  .work-pager__next:hover .work-pager__title::after {
+    transform: scaleX(1);
+  }
+}
+
 @media (min-width: 768px) {
-  .work-detail {
-    padding-top: var(--space-m);
+  /* PCは切り抜かず、モックアップ全体を表示する */
+  .work-detail__hero {
+    aspect-ratio: auto;
+  }
+
+  .work-detail__hero img {
+    width: 100%;
+    margin-left: 0;
   }
 
   .work-detail__title {
@@ -1191,6 +1249,10 @@ body:has(.lightbox[open]) {
 
   .work-pager {
     font-size: 16px;
+  }
+
+  .work-pager__label {
+    font-size: 13px;
   }
 }
 

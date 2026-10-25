@@ -12,7 +12,7 @@
 </head>
 <body>
 
-  <header class="site-header">
+  <header class="site-header site-header--overlay site-header--on-light">
     <div class="container site-header__inner">
       <!-- TODO: images/logo.svg ができたら <img src="../../images/logo.svg" alt="ODDITIMANA"> に差し替え -->
       <a class="site-logo" href="../../index.html">ODDITIMANA</a>
@@ -29,83 +29,88 @@
   </header>
 
   <main class="work-detail">
-    <article class="container">
-      <figure class="work-detail__mockup">
-        <img src="../../images/works/cafoscarishortjapan.webp" alt="" width="1600" height="897">
+    <article>
+      <figure class="work-detail__hero">
+        <img src="../../images/works/cafoscari/hero-1280.webp" srcset="../../images/works/cafoscari/hero-1280.webp 1280w, ../../images/works/cafoscari/hero.webp 2560w" sizes="(max-width: 767px) 189vw, 100vw" alt="" width="2560" height="1434">
       </figure>
 
-      <h1 class="work-detail__title">ベネチア・<wbr>カフォスカリ<wbr>短編映画祭 in JAPAN</h1>
+      <div class="container">
+        <h1 class="work-detail__title">ベネチア・<wbr>カフォスカリ<wbr>短編映画祭 in JAPAN</h1>
 
-      <div class="work-detail__lead">
-        <p>ヴェネツィア・<wbr>カフォスカリ大学の<wbr>短編映画祭、<wbr>日本開催の<wbr>公式サイト。</p>
-        <p>進行中だった<wbr>サイトが<wbr>公開に至らず、<wbr>急遽引き継いで<wbr>構成から<wbr>つくり直しました。<wbr>ワイヤーフレームから<wbr>公開まで<wbr>約3週間。</p>
+        <div class="work-detail__lead">
+          <p>ヴェネツィア・<wbr>カフォスカリ大学の<wbr>短編映画祭、<wbr>日本開催の<wbr>公式サイト。</p>
+          <p>進行中だった<wbr>サイトが<wbr>公開に至らず、<wbr>急遽引き継いで<wbr>構成から<wbr>つくり直しました。<wbr>ワイヤーフレームから<wbr>公開まで<wbr>約3週間。</p>
+        </div>
+
+        <dl class="info-list work-detail__info">
+          <div class="info-list__row">
+            <dt>担当範囲</dt>
+            <dd>ワイヤーフレーム／<wbr>デザイン／<wbr>コーディング／<wbr>WordPress（Elementor）構築</dd>
+          </div>
+          <div class="info-list__row">
+            <dt>制作期間</dt>
+            <dd>22日間<wbr>（ワイヤーフレーム5日・<wbr>デザイン10日・<wbr>コーディング7日）</dd>
+          </div>
+          <div class="info-list__row">
+            <dt>制作時期</dt>
+            <dd>2022年8月〜9月</dd>
+          </div>
+          <div class="info-list__row">
+            <dt>URL</dt>
+            <dd><a class="line-link" href="https://makotoyacoltd.jp/cafoscarishortjapan/wordpress/" target="_blank" rel="noopener">https://makotoyacoltd.jp/<wbr>cafoscarishortjapan/<wbr>wordpress/</a></dd>
+          </div>
+        </dl>
+
+        <section class="work-shots" aria-labelledby="shots-pc-title">
+          <h2 class="work-shots__title" id="shots-pc-title">PC</h2>
+          <ul class="shot-list">
+            <li class="shot">
+              <button class="shot__zoom" type="button" data-large="../../images/works/cafoscari/pc-hero-large.webp" aria-haspopup="dialog" aria-label="トップページのファーストビュー（PC表示）を拡大表示">
+                <img src="../../images/works/cafoscari/pc-hero.webp" alt="トップページのファーストビュー（PC表示）" width="1200" height="616" loading="lazy">
+              </button>
+              <p class="shot__caption">映画祭の<wbr>キービジュアルを<wbr>主役に。<wbr>キャッチコピーと<wbr>ロゴは<wbr>左にまとめ、<wbr>ビジュアルの<wbr>印象を<wbr>邪魔しない<wbr>配置にしました。</p>
+            </li>
+            <li class="shot">
+              <button class="shot__zoom" type="button" data-large="../../images/works/cafoscari/pc-works-large.webp" data-lightbox="tall" aria-haspopup="dialog" aria-label="上映作品の一覧（PC表示）を拡大表示">
+                <img src="../../images/works/cafoscari/pc-works.webp" alt="上映作品の一覧（PC表示）" width="1200" height="616" loading="lazy">
+              </button>
+              <p class="shot__caption">上映作品は、<wbr>画像・<wbr>タイトル・<wbr>作品データ・<wbr>あらすじの<wbr>並びを統一し、<wbr>本数が多くても<wbr>見比べやすく<wbr>しています。</p>
+            </li>
+            <li class="shot">
+              <button class="shot__zoom" type="button" data-large="../../images/works/cafoscari/pc-about-large.webp" data-lightbox="tall" aria-haspopup="dialog" aria-label="関係者のコメント（PC表示）を拡大表示">
+                <img src="../../images/works/cafoscari/pc-about.webp" alt="関係者のコメント（PC表示）" width="1200" height="616" loading="lazy">
+              </button>
+              <p class="shot__caption">関係者の<wbr>コメントは、<wbr>背景に固定した<wbr>映画のスチールの<wbr>上にカードを重ね、<wbr>スクロールで<wbr>場面が<wbr>流れていくような<wbr>見せ方にしました。</p>
+            </li>
+          </ul>
+        </section>
+
+        <section class="work-shots" aria-labelledby="shots-sp-title">
+          <h2 class="work-shots__title" id="shots-sp-title">SMARTPHONE</h2>
+          <ul class="shot-list shot-list--sp">
+            <li class="shot">
+              <button class="shot__zoom" type="button" data-large="../../images/works/cafoscari/sp-hero-large.webp" aria-haspopup="dialog" aria-label="トップページのファーストビュー（スマホ表示）を拡大表示">
+                <img src="../../images/works/cafoscari/sp-hero.webp" alt="トップページのファーストビュー（スマホ表示）" width="600" height="1067" loading="lazy">
+              </button>
+              <p class="shot__caption">スマホでも<wbr>キービジュアルが<wbr>主役になるよう、<wbr>縦長の画面に<wbr>合わせて<wbr>組み替えています。</p>
+            </li>
+            <li class="shot">
+              <button class="shot__zoom" type="button" data-large="../../images/works/cafoscari/sp-works-large.webp" data-lightbox="tall" aria-haspopup="dialog" aria-label="上映作品の一覧（スマホ表示）を拡大表示">
+                <img src="../../images/works/cafoscari/sp-works.webp" alt="上映作品の一覧（スマホ表示）" width="600" height="1067" loading="lazy">
+              </button>
+              <p class="shot__caption">スマホでは<wbr>1列にして、<wbr>作品データと<wbr>あらすじを<wbr>読みやすい<wbr>文字サイズで<wbr>並べています。</p>
+            </li>
+          </ul>
+        </section>
+
+        <nav class="work-pager" aria-label="作品の移動">
+          <a class="work-pager__link line-link" href="../../index.html#websites-title">一覧に戻る</a>
+          <a class="work-pager__next" href="../every-tree/index.html">
+            <span class="work-pager__label">次の作品</span>
+            <span class="work-pager__title line-link">あだち<wbr>ファミリー<wbr>スペース<wbr>every tree</span>
+          </a>
+        </nav>
       </div>
-
-      <dl class="info-list work-detail__info">
-        <div class="info-list__row">
-          <dt>担当範囲</dt>
-          <dd>ワイヤーフレーム／<wbr>デザイン／<wbr>コーディング／<wbr>WordPress（Elementor）構築</dd>
-        </div>
-        <div class="info-list__row">
-          <dt>制作期間</dt>
-          <dd>22日間<wbr>（ワイヤーフレーム5日・<wbr>デザイン10日・<wbr>コーディング7日）</dd>
-        </div>
-        <div class="info-list__row">
-          <dt>制作時期</dt>
-          <dd>2022年8月〜9月</dd>
-        </div>
-        <div class="info-list__row">
-          <dt>URL</dt>
-          <dd><a class="line-link" href="https://makotoyacoltd.jp/cafoscarishortjapan/wordpress/" target="_blank" rel="noopener">https://makotoyacoltd.jp/<wbr>cafoscarishortjapan/<wbr>wordpress/</a></dd>
-        </div>
-      </dl>
-
-      <section class="work-shots" aria-labelledby="shots-pc-title">
-        <h2 class="work-shots__title" id="shots-pc-title">PC</h2>
-        <ul class="shot-list">
-          <li class="shot">
-            <button class="shot__zoom" type="button" data-large="../../images/works/cafoscari/pc-hero-large.webp" aria-haspopup="dialog" aria-label="トップページのファーストビュー（PC表示）を拡大表示">
-              <img src="../../images/works/cafoscari/pc-hero.webp" alt="トップページのファーストビュー（PC表示）" width="1200" height="616" loading="lazy">
-            </button>
-            <p class="shot__caption">映画祭の<wbr>キービジュアルを<wbr>主役に。<wbr>キャッチコピーと<wbr>ロゴは<wbr>左にまとめ、<wbr>ビジュアルの<wbr>印象を<wbr>邪魔しない<wbr>配置にしました。</p>
-          </li>
-          <li class="shot">
-            <button class="shot__zoom" type="button" data-large="../../images/works/cafoscari/pc-works-large.webp" data-lightbox="tall" aria-haspopup="dialog" aria-label="上映作品の一覧（PC表示）を拡大表示">
-              <img src="../../images/works/cafoscari/pc-works.webp" alt="上映作品の一覧（PC表示）" width="1200" height="616" loading="lazy">
-            </button>
-            <p class="shot__caption">上映作品は、<wbr>画像・<wbr>タイトル・<wbr>作品データ・<wbr>あらすじの<wbr>並びを統一し、<wbr>本数が多くても<wbr>見比べやすく<wbr>しています。</p>
-          </li>
-          <li class="shot">
-            <button class="shot__zoom" type="button" data-large="../../images/works/cafoscari/pc-about-large.webp" data-lightbox="tall" aria-haspopup="dialog" aria-label="関係者のコメント（PC表示）を拡大表示">
-              <img src="../../images/works/cafoscari/pc-about.webp" alt="関係者のコメント（PC表示）" width="1200" height="616" loading="lazy">
-            </button>
-            <p class="shot__caption">関係者の<wbr>コメントは、<wbr>背景に固定した<wbr>映画のスチールの<wbr>上にカードを重ね、<wbr>スクロールで<wbr>場面が<wbr>流れていくような<wbr>見せ方にしました。</p>
-          </li>
-        </ul>
-      </section>
-
-      <section class="work-shots" aria-labelledby="shots-sp-title">
-        <h2 class="work-shots__title" id="shots-sp-title">SMARTPHONE</h2>
-        <ul class="shot-list shot-list--sp">
-          <li class="shot">
-            <button class="shot__zoom" type="button" data-large="../../images/works/cafoscari/sp-hero-large.webp" aria-haspopup="dialog" aria-label="トップページのファーストビュー（スマホ表示）を拡大表示">
-              <img src="../../images/works/cafoscari/sp-hero.webp" alt="トップページのファーストビュー（スマホ表示）" width="600" height="1067" loading="lazy">
-            </button>
-            <p class="shot__caption">スマホでも<wbr>キービジュアルが<wbr>主役になるよう、<wbr>縦長の画面に<wbr>合わせて<wbr>組み替えています。</p>
-          </li>
-          <li class="shot">
-            <button class="shot__zoom" type="button" data-large="../../images/works/cafoscari/sp-works-large.webp" data-lightbox="tall" aria-haspopup="dialog" aria-label="上映作品の一覧（スマホ表示）を拡大表示">
-              <img src="../../images/works/cafoscari/sp-works.webp" alt="上映作品の一覧（スマホ表示）" width="600" height="1067" loading="lazy">
-            </button>
-            <p class="shot__caption">スマホでは<wbr>1列にして、<wbr>作品データと<wbr>あらすじを<wbr>読みやすい<wbr>文字サイズで<wbr>並べています。</p>
-          </li>
-        </ul>
-      </section>
-
-      <nav class="work-pager" aria-label="作品の移動">
-        <a class="work-pager__link line-link" href="../../index.html#websites-title">一覧に戻る</a>
-        <a class="work-pager__link work-pager__link--next line-link" href="../every-tree/index.html">次の作品</a>
-      </nav>
     </article>
   </main>
 
