@@ -13,9 +13,10 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+  <link rel="preload" href="../../fonts/six-caps-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Six+Caps&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap">
   <link rel="stylesheet" href="../../css/style.css">
   <script src="../../js/main.js" defer></script>
 </head>
@@ -40,7 +41,7 @@
   <main class="work-detail">
     <article>
       <figure class="work-detail__hero">
-        <img src="../../images/works/mameshiba/hero-1280.webp" srcset="../../images/works/mameshiba/hero-1280.webp 1280w, ../../images/works/mameshiba/hero.webp 2560w" sizes="(max-width: 767px) 189vw, 100vw" alt="" width="2560" height="1434">
+        <img fetchpriority="high" src="../../images/works/mameshiba/hero-1280.webp" srcset="../../images/works/mameshiba/hero-1280.webp 1280w, ../../images/works/mameshiba/hero-1600.webp 1600w, ../../images/works/mameshiba/hero.webp 2560w" sizes="(max-width: 767px) 189vw, 100vw" alt="" width="2560" height="1434">
       </figure>
 
       <div class="container">
@@ -82,9 +83,9 @@
         <section class="work-shots" aria-labelledby="banners-title">
           <h2 class="work-shots__title" id="banners-title">BANNERS</h2>
           <ul class="banner-list">
-            <li><img src="../../images/works/mameshiba/banner-01.webp" alt="バナー「ご購入の流れはコチラ　ご見学からお迎えまでの流れ、合計金額などについて説明をしています。」" width="1920" height="384" loading="lazy"></li>
-            <li><img src="../../images/works/mameshiba/banner-02.webp" alt="バナー「自慢の可愛い子犬達をご覧ください　現在産まれている子犬の情報をご覧いただけます」" width="2400" height="494" loading="lazy"></li>
-            <li><img src="../../images/works/mameshiba/banner-03.webp" alt="バナー「その他の子犬情報はこちら」" width="1440" height="340" loading="lazy"></li>
+            <li><img src="../../images/works/mameshiba/banner-01.webp" srcset="../../images/works/mameshiba/banner-01-800.webp 800w, ../../images/works/mameshiba/banner-01.webp 1920w" sizes="(min-width: 800px) 720px, (min-width: 768px) calc(100vw - 80px), calc(100vw - 40px)" alt="バナー「ご購入の流れはコチラ　ご見学からお迎えまでの流れ、合計金額などについて説明をしています。」" width="1920" height="384" loading="lazy"></li>
+            <li><img src="../../images/works/mameshiba/banner-02.webp" srcset="../../images/works/mameshiba/banner-02-800.webp 800w, ../../images/works/mameshiba/banner-02.webp 2400w" sizes="(min-width: 800px) 720px, (min-width: 768px) calc(100vw - 80px), calc(100vw - 40px)" alt="バナー「自慢の可愛い子犬達をご覧ください　現在産まれている子犬の情報をご覧いただけます」" width="2400" height="494" loading="lazy"></li>
+            <li><img src="../../images/works/mameshiba/banner-03.webp" srcset="../../images/works/mameshiba/banner-03-800.webp 800w, ../../images/works/mameshiba/banner-03.webp 1440w" sizes="(min-width: 800px) 720px, (min-width: 768px) calc(100vw - 80px), calc(100vw - 40px)" alt="バナー「その他の子犬情報はこちら」" width="1440" height="340" loading="lazy"></li>
           </ul>
           <p class="shot__caption">サイトの<wbr>色やトーンに<wbr>合わせて、<wbr>ページへの<wbr>導線になる<wbr>バナーを<wbr>制作しました。</p>
         </section>

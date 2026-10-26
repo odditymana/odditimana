@@ -13,9 +13,10 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+  <link rel="preload" href="../../fonts/six-caps-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Six+Caps&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap">
   <link rel="stylesheet" href="../../css/style.css">
   <script src="../../js/main.js" defer></script>
 </head>
@@ -40,7 +41,7 @@
   <main class="work-detail">
     <article>
       <figure class="work-detail__hero">
-        <img src="../../images/works/cafoscari/hero-1280.webp" srcset="../../images/works/cafoscari/hero-1280.webp 1280w, ../../images/works/cafoscari/hero.webp 2560w" sizes="(max-width: 767px) 189vw, 100vw" alt="" width="2560" height="1434">
+        <img fetchpriority="high" src="../../images/works/cafoscari/hero-1280.webp" srcset="../../images/works/cafoscari/hero-1280.webp 1280w, ../../images/works/cafoscari/hero-1600.webp 1600w, ../../images/works/cafoscari/hero.webp 2560w" sizes="(max-width: 767px) 189vw, 100vw" alt="" width="2560" height="1434">
       </figure>
 
       <div class="container">
@@ -75,19 +76,19 @@
           <ul class="shot-list">
             <li class="shot">
               <button class="shot__zoom" type="button" data-large="../../images/works/cafoscari/pc-hero-large.webp" aria-haspopup="dialog" aria-label="トップページのファーストビュー（PC表示）を拡大表示">
-                <img src="../../images/works/cafoscari/pc-hero.webp" alt="トップページのファーストビュー（PC表示）" width="1200" height="616" loading="lazy">
+                <img src="../../images/works/cafoscari/pc-hero.webp" srcset="../../images/works/cafoscari/pc-hero-800.webp 800w, ../../images/works/cafoscari/pc-hero.webp 1200w" sizes="(min-width: 1280px) 1200px, (min-width: 768px) calc(100vw - 80px), calc(100vw - 40px)" alt="トップページのファーストビュー（PC表示）" width="1200" height="616" loading="lazy">
               </button>
               <p class="shot__caption">映画祭の<wbr>キービジュアルを<wbr>主役に。<wbr>キャッチコピーと<wbr>ロゴは<wbr>左にまとめ、<wbr>ビジュアルの<wbr>印象を<wbr>邪魔しない<wbr>配置にしました。</p>
             </li>
             <li class="shot">
               <button class="shot__zoom" type="button" data-large="../../images/works/cafoscari/pc-works-large.webp" data-lightbox="tall" aria-haspopup="dialog" aria-label="上映作品の一覧（PC表示）を拡大表示">
-                <img src="../../images/works/cafoscari/pc-works.webp" alt="上映作品の一覧（PC表示）" width="1200" height="616" loading="lazy">
+                <img src="../../images/works/cafoscari/pc-works.webp" srcset="../../images/works/cafoscari/pc-works-800.webp 800w, ../../images/works/cafoscari/pc-works.webp 1200w" sizes="(min-width: 1280px) 1200px, (min-width: 768px) calc(100vw - 80px), calc(100vw - 40px)" alt="上映作品の一覧（PC表示）" width="1200" height="616" loading="lazy">
               </button>
               <p class="shot__caption">上映作品は、<wbr>画像・<wbr>タイトル・<wbr>作品データ・<wbr>あらすじの<wbr>並びを統一し、<wbr>本数が多くても<wbr>見比べやすく<wbr>しています。</p>
             </li>
             <li class="shot">
               <button class="shot__zoom" type="button" data-large="../../images/works/cafoscari/pc-about-large.webp" data-lightbox="tall" aria-haspopup="dialog" aria-label="関係者のコメント（PC表示）を拡大表示">
-                <img src="../../images/works/cafoscari/pc-about.webp" alt="関係者のコメント（PC表示）" width="1200" height="616" loading="lazy">
+                <img src="../../images/works/cafoscari/pc-about.webp" srcset="../../images/works/cafoscari/pc-about-800.webp 800w, ../../images/works/cafoscari/pc-about.webp 1200w" sizes="(min-width: 1280px) 1200px, (min-width: 768px) calc(100vw - 80px), calc(100vw - 40px)" alt="関係者のコメント（PC表示）" width="1200" height="616" loading="lazy">
               </button>
               <p class="shot__caption">関係者の<wbr>コメントは、<wbr>背景に固定した<wbr>映画のスチールの<wbr>上にカードを重ね、<wbr>スクロールで<wbr>場面が<wbr>流れていくような<wbr>見せ方にしました。</p>
             </li>
