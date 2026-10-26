@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>OGP（images/ogp.png の元）</title>
+  <!-- 作り直し方は tools/README.md を参照。公開するページではない -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@700&family=Six+Caps&display=swap">
+  <style>
+    /* 色は css/style.css と同じ値。文字は --color-bg、地はトップのヒーローの背景 */
+    :root {
+      --ogp-text: #ecece7;
+      --ogp-ground: #111;
+      /* 端が切れても大事な文字が残るよう、上下左右に取る余白 */
+      --safe-x: 80px;
+      --safe-y: 60px;
+    }
+
+    html,
+    body,
+    p {
+      margin: 0;
+    }
+
+    body {
+      position: relative;
+      width: 1200px;
+      height: 630px;
+      overflow: hidden;
+      background-color: var(--ogp-ground);
+      color: var(--ogp-text);
+      font-family: "Noto Sans JP", sans-serif;
+    }
+
+    /* 左上：ロゴ */
+    .logo {
+      position: absolute;
+      top: var(--safe-y);
+      left: var(--safe-x);
+      font-family: "Six Caps", sans-serif;
+      font-size: 44px;
+      line-height: 1;
+      letter-spacing: 0.04em;
+    }
+
+    /* 左下：トップのヒーローと同じ「線＋名前」 */
+    .name {
+      position: absolute;
+      bottom: var(--safe-y);
+      left: var(--safe-x);
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0.08em;
+    }
+
+    .name::before {
+      content: "";
+      width: 72px;
+      height: 1px;
+      background-color: currentColor;
+    }
+
+    /* 主役：トップのヒーローと同じく、1行目を左、2行目を右に置いて左上から右下へ流す。
+       2行の字面（約360px）が上下の余白の内側に収まり、左上のロゴとも間があく大きさ。
+       ロゴとの間を取るため、上下中央より少し下に置く */
+    .heading {
+      position: absolute;
+      top: calc(50% + 14px);
+      right: var(--safe-x);
+      left: var(--safe-x);
+      margin: 0;
+      font-family: "Six Caps", sans-serif;
+      font-size: 200px;
+      font-weight: 400;
+      line-height: 0.9;
+      letter-spacing: 0.02em;
+      transform: translateY(-50%);
+    }
+
+    .heading span {
+      display: block;
+      white-space: nowrap;
+    }
+
+    .heading span + span {
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+  <p class="logo">ODDITIMANA</p>
+  <h1 class="heading"><span>WEB DESIGN</span><span>&amp; CODING</span></h1>
+  <p class="name">KAZUKI ABE</p>
+</body>
+</html>

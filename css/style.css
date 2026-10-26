@@ -744,7 +744,7 @@ a.work-card__link {
 /* ホバー（マウスのある端末だけ）とキーボードフォーカスで同じ見た目にする。
    フライヤーはタイトルがボタンの外にあるので :has() でカード側から判定する。
    「視差効果を減らす」設定の人は、画像は拡大せず、線は動かさずにすぐ表示する
-   （transition は 12. Utility の prefers-reduced-motion でまとめて止めている） */
+   （transition は 13. Utility の prefers-reduced-motion でまとめて止めている） */
 a.work-card__link:focus-visible .work-card__title::after,
 .work-card--zoom:has(.work-card__zoom:focus-visible) .work-card__title::after {
   transform: scaleX(1);
@@ -1331,7 +1331,36 @@ body:has(.lightbox[open]) {
 }
 
 /* ==========================================================================
-   12. Utility
+   12. Not found（404.html）
+   ========================================================================== */
+.not-found {
+  padding-block: var(--space-l) var(--space-xl);
+}
+
+.not-found__text {
+  font-size: 15px;
+  line-height: 2;
+  letter-spacing: 0.04em;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+.not-found__back {
+  margin-top: var(--space-l);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+@media (min-width: 768px) {
+  .not-found__text,
+  .not-found__back {
+    font-size: 16px;
+  }
+}
+
+/* ==========================================================================
+   13. Utility
    ========================================================================== */
 .visually-hidden {
   position: absolute;

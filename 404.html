@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ページが見つかりません｜ODDITIMANA</title>
+  <meta name="robots" content="noindex">
+  <!-- 存在しない URL ならどの深さでもこのファイルが返されるので、パスはすべて / から始める -->
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Six+Caps&display=swap">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/main.js" defer></script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <!-- TODO: images/logo.svg ができたら <img src="/images/logo.svg" alt="ODDITIMANA"> に差し替え -->
+      <a class="site-logo" href="/">ODDITIMANA</a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="global-nav" aria-label="メニューを開く">
+        <span class="nav-toggle__bar"></span>
+      </button>
+      <nav class="global-nav" id="global-nav" aria-label="グローバルナビゲーション">
+        <ul class="global-nav__list">
+          <li><a class="global-nav__link" href="/">WORKS</a></li>
+          <li><a class="global-nav__link" href="/about/">ABOUT</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="not-found">
+    <div class="container">
+      <h1 class="section-title">404</h1>
+      <p class="not-found__text">ページが<wbr>見つかりません。<wbr>URLが<wbr>間違っているか、<wbr>ページが<wbr>移動・<wbr>削除された<wbr>可能性があります。</p>
+      <p class="not-found__back"><a class="line-link" href="/">トップに戻る</a></p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <a class="site-footer__logo" href="/">ODDITIMANA</a>
+      <ul class="site-footer__links">
+        <li><a class="line-link" href="mailto:hello@odditimana.com">hello@odditimana.com</a></li>
+        <li><a class="line-link" href="https://github.com/odditymana" target="_blank" rel="noopener">GitHub</a></li>
+      </ul>
+      <small class="site-footer__copy">Copyright &copy; 2026 ODDITIMANA</small>
+    </div>
+  </footer>
+
+</body>
+</html>
