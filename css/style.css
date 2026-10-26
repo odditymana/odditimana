@@ -1153,6 +1153,31 @@ body:has(.lightbox[open]) {
   overflow-wrap: anywhere;
 }
 
+/* 1ページで複数の版（竜二の 2026 / 2023）を見せるときの区切り。見出しは .section-title */
+.work-version {
+  margin-top: var(--space-xl);
+}
+
+.work-version__shots {
+  margin-top: var(--space-l);
+}
+
+/* 絵コンテのように順番を見せるキャプチャ（PCは横3列）。順番は ol で伝え、①②③は飾り */
+.shot-list--steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.shot__step {
+  display: block;
+  margin-bottom: var(--space-xs);
+  color: var(--color-label);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+}
+
 /* 担当した作業の箇条書き（キャプチャを載せない保守案件用）。
    情報の dl（.info-list）と同じく、細い線で項目を区切る */
 .task-list {
@@ -1275,6 +1300,16 @@ body:has(.lightbox[open]) {
 
   .task-list li {
     font-size: 16px;
+  }
+
+  .shot-list--steps {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-m);
+  }
+
+  /* 前の版は今の版より目立たないよう、幅を抑えて左揃えにする */
+  .work-version__shots {
+    max-width: 720px;
   }
 
   /* 実際のサイトでの表示サイズに近づけるため、幅を抑えて左揃えにする */
