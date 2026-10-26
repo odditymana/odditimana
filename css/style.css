@@ -1092,10 +1092,11 @@ body:has(.lightbox[open]) {
   margin-left: calc(var(--crop-x) / var(--crop-w) * -100%);
 }
 
-/* 作品名も <wbr> の位置（と半角スペース）だけで改行する */
+/* 作品名も <wbr> の位置（と半角スペース）だけで改行する。
+   下の Six Caps の見出し（PC・2026 など）より弱く見えないよう、大きめにする */
 .work-detail__title {
   margin-top: var(--space-l);
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 700;
   line-height: 1.5;
   letter-spacing: 0.04em;
@@ -1153,9 +1154,15 @@ body:has(.lightbox[open]) {
   overflow-wrap: anywhere;
 }
 
-/* 1ページで複数の版（竜二の 2026 / 2023）を見せるときの区切り。見出しは .section-title */
+/* 1ページで複数の版（竜二の 2026 / 2023）を見せるときの区切り。
+   見出しは .section-title を使い、作品名（h1）より目立たないよう小さくする。
+   スマホは .section-title の最小値 48px のまま（h3 の 40px より大きく保つ） */
 .work-version {
   margin-top: var(--space-xl);
+}
+
+.work-version > .section-title {
+  font-size: clamp(48px, 6vw, 64px);
 }
 
 .work-version__shots {
@@ -1179,11 +1186,8 @@ body:has(.lightbox[open]) {
 }
 
 /* 担当した作業の箇条書き（キャプチャを載せない保守案件用）。
-   情報の dl（.info-list）と同じく、細い線で項目を区切る */
-.task-list {
-  border-top: 1px solid var(--color-line-light);
-}
-
+   情報の dl（.info-list）と同じく、各項目の下の細い線で区切る。
+   上は見出しの下線があるので、線を足さない */
 .task-list li {
   padding-block: var(--space-s);
   border-bottom: 1px solid var(--color-line-light);
@@ -1276,7 +1280,7 @@ body:has(.lightbox[open]) {
   }
 
   .work-detail__title {
-    font-size: 32px;
+    font-size: 40px;
   }
 
   .work-detail__lead {
