@@ -39,6 +39,7 @@
   --space-xs: 8px;
   --space-s: 16px;
   --space-m: 24px;
+  --space-ml: 32px;
   --space-l: 48px;
   --space-xl: 80px;
   --gutter: 20px;
@@ -51,6 +52,7 @@
 
 @media (min-width: 768px) {
   :root {
+    --space-ml: 40px;
     --space-l: 64px;
     --space-xl: 120px;
     --gutter: 40px;
@@ -1131,7 +1133,7 @@ body:has(.lightbox[open]) {
 }
 
 .work-detail__info {
-  margin-top: var(--space-l);
+  margin-top: var(--space-ml);
   border-top: 1px solid var(--color-line);
 }
 
@@ -1177,7 +1179,9 @@ body:has(.lightbox[open]) {
   margin-top: var(--space-xl);
 }
 
+/* 下の説明文を見出しにくっつけ、他の作品詳細ページ（作品名 → 説明文）と同じ間隔にする */
 .work-version > .section-title {
+  margin-bottom: var(--space-m);
   font-size: clamp(48px, 6vw, 64px);
 }
 
@@ -1204,6 +1208,22 @@ body:has(.lightbox[open]) {
 /* 担当した作業の箇条書き（キャプチャを載せない保守案件用）。
    情報の dl（.info-list）と同じく、各項目の下の細い線で区切る。
    上は見出しの下線があるので、線を足さない */
+/* セクションの見出しの下に置く補足文。すぐ下の箇条書きと同じ文字の大きさ・行の高さにする */
+.work-shots__text {
+  margin-top: var(--space-s);
+  font-size: 15px;
+  line-height: 1.9;
+  letter-spacing: 0.04em;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+/* 見出しの直後ではなく補足文の後に続くときは、補足文と1項目目を分けるため上にも線を引く */
+.work-shots__text + .task-list {
+  margin-top: var(--space-s);
+  border-top: 1px solid var(--color-line-light);
+}
+
 .task-list li {
   padding-block: var(--space-s);
   border-bottom: 1px solid var(--color-line-light);
@@ -1318,6 +1338,7 @@ body:has(.lightbox[open]) {
     font-size: 15px;
   }
 
+  .work-shots__text,
   .task-list li {
     font-size: 16px;
   }
