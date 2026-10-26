@@ -1153,6 +1153,32 @@ body:has(.lightbox[open]) {
   overflow-wrap: anywhere;
 }
 
+/* 担当した作業の箇条書き（キャプチャを載せない保守案件用）。
+   情報の dl（.info-list）と同じく、細い線で項目を区切る */
+.task-list {
+  border-top: 1px solid var(--color-line-light);
+}
+
+.task-list li {
+  padding-block: var(--space-s);
+  border-bottom: 1px solid var(--color-line-light);
+  font-size: 15px;
+  line-height: 1.9;
+  letter-spacing: 0.04em;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+/* バナー：横長で十分読めるので、ライトボックスなしで縦に並べる */
+.banner-list {
+  display: grid;
+  gap: var(--space-m);
+}
+
+.banner-list img {
+  width: 100%;
+}
+
 /* 作品カードと同じく、ホバー（マウスのある端末だけ）とキーボードフォーカスで少し拡大する */
 @media (prefers-reduced-motion: no-preference) {
   .shot__zoom:focus-visible img {
@@ -1245,6 +1271,15 @@ body:has(.lightbox[open]) {
 
   .shot__caption {
     font-size: 15px;
+  }
+
+  .task-list li {
+    font-size: 16px;
+  }
+
+  /* 実際のサイトでの表示サイズに近づけるため、幅を抑えて左揃えにする */
+  .banner-list {
+    max-width: 720px;
   }
 
   .work-pager {
