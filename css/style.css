@@ -760,7 +760,7 @@ a.work-card__link {
 .work-card__pair {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-s);
+  gap: var(--space-xs);
 }
 
 .work-card__ticket {
