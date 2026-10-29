@@ -740,11 +740,8 @@ a.work-card__link {
   display: block;
 }
 
-/* フライヤー：画像部分のボタンをカード全体に広げる */
-.work-card--zoom {
-  position: relative;
-}
-
+/* フライヤー：画像ごとの拡大ボタン。カードには画像が複数ある（表裏2枚組、特集のフライヤー＋チケット）ので、
+   押せる範囲とフォーカスの枠は画像1枚ごとにする */
 .work-card__zoom {
   display: block;
   width: 100%;
@@ -754,30 +751,16 @@ a.work-card__link {
   cursor: zoom-in;
 }
 
-.work-card__zoom::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-}
-
 .work-card__zoom:focus-visible {
-  outline: none;
-}
-
-.work-card__zoom:focus-visible::after {
   outline: 2px solid var(--color-text);
   outline-offset: 4px;
 }
 
-/* 特集カード：フライヤーとチケットの2つのボタンがあるので、押せる範囲は画像1枚ごとにする。
-   ボタンは overflow: hidden で ::after の枠が切れるので、フォーカスの枠はボタン自体に付ける */
-.work-card--feature .work-card__zoom::after {
-  content: none;
-}
-
-.work-card--feature .work-card__zoom:focus-visible {
-  outline: 2px solid var(--color-text);
-  outline-offset: 4px;
+/* 表裏2枚組：表と裏をページの背景色の隙間で並べる */
+.work-card__pair {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-s);
 }
 
 .work-card__ticket {
@@ -786,7 +769,7 @@ a.work-card__link {
 
 /* ホバー（マウスのある端末だけ）とキーボードフォーカスで同じ見た目にする。
    フライヤーはタイトルがボタンの外にあるので :has() でカード側から判定する。
-   特集カードはボタンが2つあるので、拡大するのは触れている画像だけにする。
+   フライヤーは画像が複数あるので、拡大するのは触れている画像だけにする。
    「視差効果を減らす」設定の人は、画像は拡大せず、線は動かさずにすぐ表示する
    （transition は 13. Utility の prefers-reduced-motion でまとめて止めている） */
 a.work-card__link:focus-visible .work-card__title::after,
@@ -796,8 +779,7 @@ a.work-card__link:focus-visible .work-card__title::after,
 
 @media (hover: hover) {
   a.work-card__link:hover .work-card__title::after,
-  .work-card--zoom:not(.work-card--feature):hover .work-card__title::after,
-  .work-card--feature:has(.work-card__zoom:hover) .work-card__title::after {
+  .work-card--multi:has(.work-card__zoom:hover) .work-card__title::after {
     transform: scaleX(1);
   }
 }
@@ -811,8 +793,7 @@ a.work-card__link:focus-visible .work-card__title::after,
 
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   a.work-card__link:hover .work-card__image img,
-  .work-card--zoom:not(.work-card--feature):hover .work-card__image img,
-  .work-card--feature .work-card__zoom:hover img {
+  .work-card--multi .work-card__zoom:hover img {
     transform: scale(1.03);
   }
 }
