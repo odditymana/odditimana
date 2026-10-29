@@ -726,6 +726,16 @@ body.is-menu-open .site-header--overlay {
   letter-spacing: 0.08em;
 }
 
+/* 説明文（特集カード）。文字の大きさ・行間は作品詳細ページの説明文に合わせる */
+.work-card__text {
+  margin-top: var(--space-s);
+  font-size: 15px;
+  line-height: 2;
+  letter-spacing: 0.04em;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
 a.work-card__link {
   display: block;
 }
@@ -759,8 +769,24 @@ a.work-card__link {
   outline-offset: 4px;
 }
 
+/* 特集カード：フライヤーとチケットの2つのボタンがあるので、押せる範囲は画像1枚ごとにする。
+   ボタンは overflow: hidden で ::after の枠が切れるので、フォーカスの枠はボタン自体に付ける */
+.work-card--feature .work-card__zoom::after {
+  content: none;
+}
+
+.work-card--feature .work-card__zoom:focus-visible {
+  outline: 2px solid var(--color-text);
+  outline-offset: 4px;
+}
+
+.work-card__ticket {
+  margin-top: var(--space-s);
+}
+
 /* ホバー（マウスのある端末だけ）とキーボードフォーカスで同じ見た目にする。
    フライヤーはタイトルがボタンの外にあるので :has() でカード側から判定する。
+   特集カードはボタンが2つあるので、拡大するのは触れている画像だけにする。
    「視差効果を減らす」設定の人は、画像は拡大せず、線は動かさずにすぐ表示する
    （transition は 13. Utility の prefers-reduced-motion でまとめて止めている） */
 a.work-card__link:focus-visible .work-card__title::after,
@@ -770,21 +796,23 @@ a.work-card__link:focus-visible .work-card__title::after,
 
 @media (hover: hover) {
   a.work-card__link:hover .work-card__title::after,
-  .work-card--zoom:hover .work-card__title::after {
+  .work-card--zoom:not(.work-card--feature):hover .work-card__title::after,
+  .work-card--feature:has(.work-card__zoom:hover) .work-card__title::after {
     transform: scaleX(1);
   }
 }
 
 @media (prefers-reduced-motion: no-preference) {
   a.work-card__link:focus-visible .work-card__image img,
-  .work-card--zoom:has(.work-card__zoom:focus-visible) .work-card__image img {
+  .work-card__zoom:focus-visible img {
     transform: scale(1.03);
   }
 }
 
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   a.work-card__link:hover .work-card__image img,
-  .work-card--zoom:hover .work-card__image img {
+  .work-card--zoom:not(.work-card--feature):hover .work-card__image img,
+  .work-card--feature .work-card__zoom:hover img {
     transform: scale(1.03);
   }
 }
@@ -797,6 +825,34 @@ a.work-card__link:focus-visible .work-card__title::after,
 
   .work-card__title {
     font-size: 18px;
+  }
+
+  .work-card__text {
+    font-size: clamp(16px, 1.2vw, 17px);
+  }
+
+  /* 特集カード：2列分の幅を使い、左に正方形のフライヤー、右の列の上にチケット、その下に文字を置く。
+     列の幅と間隔は一覧と同じにして、下の2列と縦の線を揃える。
+     右の列は上揃えにして、チケット＋文字の高さを左の正方形とおおむね揃える */
+  .work-card--feature {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto 1fr;
+    column-gap: var(--space-m);
+    align-items: start;
+  }
+
+  .work-card--feature > .work-card__zoom:first-child {
+    grid-row: 1 / -1;
+  }
+
+  .work-card--feature .work-card__ticket {
+    margin-top: 0;
+  }
+
+  .work-card--feature .work-card__body {
+    max-width: 30em;
   }
 }
 
