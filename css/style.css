@@ -1281,6 +1281,13 @@ body:has(.lightbox[open]) {
   width: 100%;
 }
 
+/* シリーズのバナー：上のバナーとは別のまとまりに見えるよう、前の説明文との間を広めに空ける。
+   3枚目は元画像が 480px しかないので、PC では3列にして表示幅を抑える */
+.banner-list--series {
+  margin-top: var(--space-l);
+  gap: var(--space-s);
+}
+
 /* 作品カードと同じく、ホバー（マウスのある端末だけ）とキーボードフォーカスで少し拡大する */
 @media (prefers-reduced-motion: no-preference) {
   .shot__zoom:focus-visible img {
@@ -1393,6 +1400,10 @@ body:has(.lightbox[open]) {
   /* 実際のサイトでの表示サイズに近づけるため、幅を抑えて左揃えにする */
   .banner-list {
     max-width: 720px;
+  }
+
+  .banner-list--series {
+    grid-template-columns: repeat(3, 1fr);
   }
 
   .work-pager {
