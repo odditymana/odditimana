@@ -1397,6 +1397,11 @@ body:has(.lightbox[open]) {
     max-width: 720px;
   }
 
+  /* 正方形に近いキャプチャは、幅いっぱいだと画面より高くなるので、幅を抑えて左揃えにする */
+  .shot--narrow {
+    max-width: 720px;
+  }
+
   /* 実際のサイトでの表示サイズに近づけるため、幅を抑えて左揃えにする */
   .banner-list {
     max-width: 720px;
