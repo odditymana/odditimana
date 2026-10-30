@@ -634,35 +634,46 @@ body.is-menu-open .site-header--overlay {
 }
 
 /* 項目名と中身の2列（ABOUT の SKILLS・HISTORY、作品詳細の情報）。
-   行は細い線で区切る（ヒーローの「削る」線と同じモチーフ） */
+   行は細い線で区切る（ヒーローの「削る」線と同じモチーフ）。
+   変数は値の文字の大きさと行の高さ。ラベルの行の高さにも使い、上揃えでもラベルが値の1行目の中央に来るようにする */
 .info-list {
+  --info-value-size: 15px;
+  --info-value-leading: 1.8;
   margin: 0;
 }
 
+/* baseline 揃えだと、URL のリンク（inline-block）が折り返したときに最後の行が基準になり、
+   Safari では値が上にずれて区切り線にかかる。上揃えにして、リンクの書き方に左右されないようにする */
 .info-list__row {
   display: grid;
   grid-template-columns: 80px 1fr;
-  align-items: baseline;
+  align-items: start;
   gap: var(--space-s);
   padding-block: var(--space-s);
   border-bottom: 1px solid var(--color-line-light);
 }
 
+/* ラベルの行の高さを値の1行分と同じにして、ラベルを値の1行目の中央に揃える */
 .info-list dt {
   font-size: 12px;
   font-weight: 700;
+  line-height: calc(var(--info-value-size) * var(--info-value-leading));
   letter-spacing: 0.1em;
 }
 
 .info-list dd {
   margin: 0;
-  font-size: 15px;
-  line-height: 1.8;
+  font-size: var(--info-value-size);
+  line-height: var(--info-value-leading);
   word-break: keep-all;
   overflow-wrap: anywhere;
 }
 
 @media (min-width: 768px) {
+  .info-list {
+    --info-value-size: 16px;
+  }
+
   .info-list__row {
     grid-template-columns: 160px 1fr;
     gap: var(--space-m);
@@ -670,10 +681,6 @@ body.is-menu-open .site-header--overlay {
 
   .info-list dt {
     font-size: 13px;
-  }
-
-  .info-list dd {
-    font-size: 16px;
   }
 }
 
