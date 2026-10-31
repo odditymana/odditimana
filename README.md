@@ -17,7 +17,7 @@
 
 ## 技術
 
-- HTML・CSS・JavaScript のバニラ構成（フレームワーク・ビルドツールなし）
+- HTML・CSS・JavaScript のバニラ構成（フレームワークなし）。公開のときだけ、Node.js のスクリプトでコメントを外してアップロードします。
 - CSS は1ファイル（`css/style.css`）。色・フォント・余白は `:root` の CSS 変数で管理しています。
 - JavaScript は1ファイル（`js/main.js`）。スマホのメニューと、画像の拡大表示（ライトボックス）だけを担当しています。
 - 画像は WebP。元画像はリポジトリに含めていません。
@@ -95,9 +95,12 @@
 ├── js/main.js         メニューとライトボックス
 ├── fonts/             Six Caps とライセンス（OFL.txt）
 ├── images/            画像（WebP）、OGP 画像
-├── tools/             削り出し演出の keyframes 生成スクリプト、OGP 画像の元の HTML
+├── tools/             公開用のスクリプト、削り出し演出の keyframes 生成スクリプト、OGP 画像の元の HTML
 ├── favicon.svg
 ├── apple-touch-icon.png
+├── .htaccess          https への転送、404、圧縮、キャッシュの設定
+├── package.json       公開用のスクリプトの設定（npm run build / deploy）
+├── .env.deploy.example  公開先の接続情報の書き方の見本
 └── CLAUDE.md          作業ルール
 ```
 
@@ -111,7 +114,23 @@ python3 -m http.server 8000
 ```
 
 - `404.html` は、どの深さの URL で表示されても崩れないよう、CSS・画像・リンクのパスを `/` から始まるルート相対パスで書いています。ファイルを直接開くと崩れるので、`http://localhost:8000/404.html` のようにサーバー経由で確認してください。
-- 存在しない URL で `404.html` を表示する設定は、公開先のサーバー側で行います。
+- 存在しない URL で `404.html` を表示する設定は、`.htaccess` で設定しています。
+
+## 公開の方法
+
+`tools/deploy.mjs` で、公開するファイルだけを FTPS（暗号化した FTP）でアップロードします。
+
+```sh
+npm install                    # 初回だけ
+npm run build                  # dist/ を作るだけ（コメントを外したもの）
+npm run deploy -- --dry-run    # 送るもの・消すもの・触らないものの一覧を出すだけ
+npm run deploy                 # dist/ を送り、古いファイルを消す
+```
+
+- 公開するものは、スクリプトの `PUBLIC` に書いたものだけです。
+- HTML・CSS・JS のコメントを外し、作業用の言葉（`TODO` など）が残っていれば止めます。
+- 公開先の直下にはサブドメインのフォルダがあるので、サーバーから消すのは `about`・`works`・`css`・`js`・`fonts`・`images` の中だけです。
+- 接続情報は `.env.deploy` に書きます（Git の対象外。書き方は `.env.deploy.example`）。
 
 ## ライセンス
 

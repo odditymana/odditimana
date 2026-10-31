@@ -17,3 +17,8 @@ _originals/
 .vscode/
 *.swp
 *~
+
+# Deploy
+.env.deploy
+node_modules/
+dist/
