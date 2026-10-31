@@ -2,7 +2,7 @@
 
 安部知樹（KAZUKI ABE）のポートフォリオサイトのソースコードです。
 
-- 公開予定：https://odditimana.com/
+- 公開中：https://odditimana.com/
 
 ## 見どころ
 
