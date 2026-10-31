@@ -7,9 +7,18 @@
 # サブドメインの WordPress にも効いているので、そのまま残す。
 SetEnvIf Request_URI ".*" AllowXmlrpc
 
-# http と www 付きのアクセスを https://odditimana.com/ に揃える（301 は恒久的な転送）
+# URL を https://odditimana.com/ の形に揃える（301 は恒久的な転送）
 <IfModule mod_rewrite.c>
   RewriteEngine On
+
+  # index.html 付きで来たアクセスを、index.html の無い URL に揃える（/about/index.html → /about/）。
+  # 判断には、ブラウザが実際に要求した URL（THE_REQUEST）を使う。
+  # /about/ を開いたときにサーバーの中で index.html に読み替えた分には反応しないので、転送がくり返されない
+  RewriteCond %{HTTP_HOST} ^(www\.)?odditimana\.com$ [NC]
+  RewriteCond %{THE_REQUEST} ^[A-Z]+\s(/(?:[^?\s]*/)?)index\.html[?\s]
+  RewriteRule ^ https://odditimana.com%1 [R=301,L]
+
+  # http と www 付きのアクセスを https://odditimana.com/ に揃える
   RewriteCond %{HTTP_HOST} ^(www\.)?odditimana\.com$ [NC]
   RewriteCond %{HTTPS} !on [OR]
   RewriteCond %{HTTP_HOST} ^www\. [NC]
