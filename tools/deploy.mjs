@@ -2,7 +2,7 @@
 //   npm run build                 dist/ を作るだけ（ブラウザで確かめる用）
 //   npm run deploy -- --dry-run   送るファイル・サーバーから消すファイル・触らないものの一覧を出すだけ
 //   npm run deploy                dist/ を作って FTPS で送り、CLEAN_DIRS の中でサーバーにあって dist/ に無いファイルを消す
-// 接続先は .env.deploy（Git の対象外。書き方は .env.deploy.example）
+// 接続先は .env.deploy（Git の対象外。書き方は .env.deploy.example）。DEPLOY_ENV_FILE で別のファイルにもできる
 // 公開先の直下にはサブドメインのフォルダもあるので、消すのは CLEAN_DIRS の中だけ
 
 import fs from 'node:fs/promises';
@@ -133,12 +133,14 @@ async function build() {
   return files.map((src) => path.relative(ROOT, src).split(path.sep).join('/'));
 }
 
-// フォルダの一覧を読む。まだ無いフォルダ（初めての公開）は空として扱う
+// フォルダの一覧を読む。まだ無いフォルダ（初めての公開）は空として扱う。
+// サーバーによって、無いときの返事は 450 か 550。接続切れなどほかのエラーは止める
+const NOT_FOUND = [450, 550];
 async function listRemote(client, dir) {
   try {
     return (await client.list(dir)).filter((e) => e.name !== '.' && e.name !== '..');
   } catch (err) {
-    if (err.code === 550) return [];
+    if (NOT_FOUND.includes(err.code)) return [];
     throw err;
   }
 }
@@ -193,10 +195,12 @@ async function findUntouched(client, remoteDir) {
 const files = await build();
 if (BUILD_ONLY) process.exit(0);
 
-process.loadEnvFile(path.join(ROOT, '.env.deploy'));
+// 接続情報のファイル。DEPLOY_ENV_FILE で別のファイルを指定できる（テスト用）
+const ENV_FILE = path.resolve(ROOT, process.env.DEPLOY_ENV_FILE || '.env.deploy');
+process.loadEnvFile(ENV_FILE);
 const { FTP_HOST, FTP_USER, FTP_PASSWORD, FTP_REMOTE_DIR } = process.env;
 if (!FTP_HOST || !FTP_USER || !FTP_PASSWORD || !FTP_REMOTE_DIR) {
-  console.error('.env.deploy に FTP_HOST・FTP_USER・FTP_PASSWORD・FTP_REMOTE_DIR を書いてください');
+  console.error(`${path.relative(ROOT, ENV_FILE)} に FTP_HOST・FTP_USER・FTP_PASSWORD・FTP_REMOTE_DIR を書いてください`);
   process.exit(1);
 }
 
