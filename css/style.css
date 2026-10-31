@@ -646,7 +646,7 @@ body.is-menu-open .site-header--overlay {
    Safari では値が上にずれて区切り線にかかる。上揃えにして、リンクの書き方に左右されないようにする */
 .info-list__row {
   display: grid;
-  grid-template-columns: 80px 1fr;
+  grid-template-columns: 88px 1fr;
   align-items: start;
   gap: var(--space-s);
   padding-block: var(--space-s);
