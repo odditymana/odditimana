@@ -1,5 +1,7 @@
 # ODDITIMANA
 
+[![トップページのヒーロー。黒い背景に、縦長の細い書体で「WEB DESIGN & CODING」と大きく2段で表示し、左下に「大分でWebサイトをつくっています。」と紹介文を添えている](.github/hero.png)](https://odditimana.com/)
+
 安部知樹（KAZUKI ABE）のポートフォリオサイトのソースコードです。
 
 - 公開中：https://odditimana.com/
